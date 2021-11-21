@@ -1,0 +1,5 @@
+[submodule "dockerimage"]
+    path = dockerimage
+    url = git@github.com:bkozdras/docker-rpi-pico-build-env.git
+    branch = main
+    tag = v1.0
