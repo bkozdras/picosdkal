@@ -3,3 +3,6 @@
     url = git@github.com:bkozdras/docker-rpi-pico-build-env.git
     branch = main
     tag = v1.0
+[submodule "docker-rpi-pico-build-env"]
+	path = docker-rpi-pico-build-env
+	url = git@github.com:bkozdras/docker-rpi-pico-build-env.git
