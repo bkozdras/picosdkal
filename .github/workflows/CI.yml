@@ -39,7 +39,7 @@ jobs:
         with:
           submodules: true
       - name: Build image from Dockerfile
-        run: docker --log-level=debug build . --file=dockerimage/Dockerfile --tag nemuuser/rpi-pico-build-env:latest --rm=true
+        run: docker --log-level=debug build . --file=dockerenv/Dockerfile --tag nemuuser/rpi-pico-build-env:latest --rm=true
       - name: "Create badge BuildDockerImage with passing state"
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
