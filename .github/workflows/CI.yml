@@ -1,0 +1,19 @@
+name: Pico-SDK-AL-CI
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - 'scripts/**'
+jobs:
+  wait-for-previous-workflow-finished:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: "Block concurrent workflow executions"
+        uses: softprops/turnstyle@v1
+        with:
+          poll-interval-seconds: 10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
