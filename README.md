@@ -13,3 +13,8 @@ The repo contains abstract layer / framework used in development for Raspberry P
 TODO
 
 # CI Dashboard
+
+[![CIStatus](https://img.shields.io/github/workflow/status/bkozdras/picosdkal/Pico-SDK-AL-CI?label=CI%20Status)](CISTATUS)
+
+[![JobBuildDockerImage](https://img.shields.io/badge/Job-Build--Docker--Image-lightgrey)](JOBBUILDOCKERIMAGE)
+![badgeBuildDockerImage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeBuildDockerImage.json?service=github)

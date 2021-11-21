@@ -17,3 +17,54 @@ jobs:
           poll-interval-seconds: 10
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  set-unknown-state-badges-for-CI:
+    runs-on: ubuntu-latest
+    needs: wait-for-previous-workflow-finished
+    steps:
+      - name: "Create badge BuildDockerImage with unknown state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeBuildDockerImage.json
+          label: Build
+          message: unknown
+          color: grey
+  build-docker-image:
+    runs-on: self-hosted
+    needs: set-unknown-state-badges-for-CI
+    steps:
+      - name: Checkout / clone GitHub repo
+        uses: actions/checkout@main
+        with:
+          submodules: true
+      - name: Build image from Dockerfile
+        run: docker --log-level=debug build . --file=dockerimage/Dockerfile --tag nemuuser/rpi-pico-build-env:latest --rm=true
+      - name: "Create badge BuildDockerImage with passing state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeBuildDockerImage.json
+          label: Build
+          message: passing
+          color: green
+      - name: "Create badge BuildDockerImage with failing state"
+        if: ${{ failure() }}
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeBuildDockerImage.json
+          label: Build
+          message: failing
+          color: red
+      - name: "Print existing docker images before cleanup the dangling ones"
+        if: ${{ always() }}
+        run: docker images --all
+      - name: "Clean dangling docker images"
+        if: ${{ always() }}
+        run: docker rmi $(docker images -f "dangling=true" -q) || echo "No images to delete"
+      - name: "Print existing docker images after cleanup the dangling ones"
+        if: ${{ always() }}
+        run: docker images --all
