@@ -467,7 +467,7 @@ jobs:
           run: |
             cd workspace_lib_stubs
             rm -r -f build_lib_stubs
-  build-library-for-target-ARM32-CortexM0+:
+  build-library-for-target-ARM32-CortexM0Plus:
     runs-on: [self-hosted]
     needs: build-docker-image
     steps:
