@@ -6,18 +6,25 @@
 
 message(STATUS "Processing: ${CMAKE_CURRENT_LIST_FILE}")
 
-set(PACKAGE_NAME_STUB stub)
-set(PROJECT_NAME ${PROJECT_NAME_PREFIX}_${PACKAGE_NAME_STUB})
+set(LOCAL_HEADERS_DIR ${HEADERS_DIR})
+set(PACKAGE_NAME_LOCAL test_picosdkmock)
+set(PROJECT_NAME ${PROJECT_NAME_PREFIX}_${PACKAGE_NAME_LOCAL})
 
 project(${PROJECT_NAME})
 
-add_subdirectory(rpipicosdkalstub)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-field-initializers -Wnon-virtual-dtor -Wsign-compare -Woverloaded-virtual -Wunused-function")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og -fno-inline -ggdb3")
-
 add_library(${PROJECT_NAME} STATIC)
 
-target_link_libraries(${PROJECT_NAME}
-    ${PROJECT_NAME}_gpio
+target_sources(${PROJECT_NAME}
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/hardware_gpio/GpioMock.hpp
+
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/hardware_gpio/GpioMock.cpp
 )
+
+target_link_libraries(${PROJECT_NAME}
+    ${PROJECT_NAME_PREFIX}_picosdkhostinterface_only_headers
+    gmock
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)

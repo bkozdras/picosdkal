@@ -27,7 +27,9 @@ endif (BUILD_LIB_FOR_TARGET OR BUILD_LIB_FOR_HOST)
 
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(INCLUDE_DIR_MOCK ${CMAKE_CURRENT_SOURCE_DIR}/mock)
+set(INCLUDE_DIR_PICOSDKHOSTINERFACE ${CMAKE_CURRENT_SOURCE_DIR}/picosdkhostinterface)
 set(INCLUDE_DIR_STUB ${CMAKE_CURRENT_SOURCE_DIR}/stub)
+set(INCLUDE_DIR_TEST ${CMAKE_CURRENT_SOURCE_DIR}/test)
 set(HEADERS_DIR ${INCLUDE_DIR}/rpipicosdkal)
 set(HEADERS_DIR_MOCK ${INCLUDE_DIR_MOCK}/rpipicosdkalmock)
 set(HEADERS_DIR_STUB ${INCLUDE_DIR_STUB}/rpipicosdkalstub)
@@ -61,9 +63,14 @@ message(STATUS "CMAKE_ASM_COMPILER = ${CMAKE_ASM_COMPILER}")
 
 include_directories(include)
 
-if (BUILD_LIB_MOCKS_FOR_HOST OR BUILD_UNIT_TESTS)
+if (BUILD_LIB_MOCKS_FOR_HOST OR BUILD_LIB_STUBS_FOR_HOST OR BUILD_UNIT_TESTS)
     include(cmake/FetchAndInitializeGTest.cmake)
-endif (BUILD_LIB_MOCKS_FOR_HOST OR BUILD_UNIT_TESTS)
+endif (BUILD_LIB_MOCKS_FOR_HOST OR BUILD_LIB_STUBS_FOR_HOST OR BUILD_UNIT_TESTS)
+
+if (BUILD_LIB_FOR_HOST)
+    include_directories(picosdkhostinterface)
+    add_subdirectory(picosdkhostinterface)
+endif (BUILD_LIB_FOR_HOST)
 
 if (BUILD_LIB_FOR_TARGET OR BUILD_LIB_FOR_HOST)
     add_subdirectory(src)
@@ -81,5 +88,6 @@ endif (BUILD_LIB_STUBS_FOR_HOST)
 
 if (BUILD_UNIT_TESTS)
     enable_testing()
+    include_directories(test)
     add_subdirectory(test)
 endif (BUILD_UNIT_TESTS)

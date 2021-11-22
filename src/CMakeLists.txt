@@ -12,21 +12,11 @@ set(PROJECT_NAME ${PROJECT_NAME_PREFIX}_${PACKAGE_NAME_LOCAL})
 
 project(${PROJECT_NAME})
 
+add_subdirectory(gpio)
+
 add_library(${PROJECT_NAME} STATIC)
 
-target_sources(${PROJECT_NAME}
-    PUBLIC
-        ${LOCAL_HEADERS_DIR}/fwd.hpp
-        ${LOCAL_HEADERS_DIR}/IExample.hpp
-        ${LOCAL_HEADERS_DIR}/Example.hpp
-
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Example.cpp
-)
-
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-        ${INCLUDE_DIR}
-)
+target_link_libraries(${PROJECT_NAME}
+    ${PROJECT_NAME}_gpio)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
