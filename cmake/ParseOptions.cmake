@@ -12,7 +12,7 @@ option(RPIPICOSDKAL_BUILD_LIB_FOR_HOST OFF, "Build Raspberry Pi PICO SDK Abstrac
 option(RPIPICOSDKAL_BUILD_LIB_MOCKS_FOR_HOST OFF, "Build Raspberry Pi PICO SDK Abstract Library mocks")
 option(RPIPICOSDKAL_BUILD_LIB_STUBS_FOR_HOST OFF, "Build Raspberry Pi PICO SDK Abstract Library stubs")
 
-option(RPIPICOSDKAL_BUILD_UNIT_TESTS, "Build Raspberry Pi PICO SDK Abstract Library unit tests")
+option(RPIPICOSDKAL_BUILD_UNIT_TESTS OFF, "Build Raspberry Pi PICO SDK Abstract Library unit tests")
 
 message(STATUS "Passed options:")
 message(STATUS "RPIPICOSDKAL_BUILD_LIB_FOR_TARGET: " ${RPIPICOSDKAL_BUILD_LIB_FOR_TARGET})

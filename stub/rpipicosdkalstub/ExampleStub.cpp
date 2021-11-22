@@ -9,5 +9,3 @@ uint32_t ExampleStub::foo()
 }
 
 }  // namespace rpipicosdkal
-
-#endif  // RPIPICOSDKALMOCK_EXAMPLESTUB_HPP_

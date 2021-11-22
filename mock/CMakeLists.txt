@@ -9,7 +9,7 @@ message(STATUS "Processing: ${CMAKE_CURRENT_LIST_FILE}")
 set(PACKAGE_NAME_MOCK mock)
 set(PROJECT_NAME ${PROJECT_NAME_PREFIX}_${PACKAGE_NAME_MOCK})
 
-project(PROJECT_NAME)
+project(${PROJECT_NAME})
 
 add_subdirectory(rpipicosdkalmock)
 

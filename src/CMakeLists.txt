@@ -19,6 +19,8 @@ target_sources(${PROJECT_NAME}
         ${LOCAL_HEADERS_DIR}/fwd.hpp
         ${LOCAL_HEADERS_DIR}/IExample.hpp
         ${LOCAL_HEADERS_DIR}/Example.hpp
+
+    PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Example.cpp
 )
 
