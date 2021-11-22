@@ -2,11 +2,13 @@
 
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 [![LibraryLanguage](https://img.shields.io/badge/Language-C%20%7C%20C%2B%2B-lightgrey)](LIBRARYLANGUAGE)
-[![TestFramework](https://img.shields.io/badge/Test%20Framework-CMocka%20%7C%20GTest-lightgrey)](TESTFRAMEWORK)
+[![TestFramework](https://img.shields.io/badge/Test%20Framework-GoogleTest-lightgrey)](TESTFRAMEWORK)
 
 [![OS](https://img.shields.io/badge/OS-Linux-lightgrey)](OS)
 [![Distribution](https://img.shields.io/badge/Distribution-Ubuntu-lightgrey)](DISTRIBUTION)
 [![BuildEnvironment](https://img.shields.io/badge/BuildEnvironment-Docker-lightgrey)](SOURCELANGUAGE)
+
+[WORK IN PROGRESS]
 
 The repo contains abstract layer / framework used in development for Raspberry Pi Pico target.
 
@@ -31,9 +33,9 @@ TODO
 ![badgeLibMocksCMake](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibMocksCmake.json?service=github)
 ![badgeLibMocksBuild](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibMocksBuild.json?service=github)
 
-[![JobLibraryStubs](https://img.shields.io/badge/Job-build--stubs--lib--host--x86__64-lightgrey)](JobLibraryMocks)
-![badgeLibMocksStubs](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibStubsCmake.json?service=github)
-![badgeLibMocksStubs](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibStubsBuild.json?service=github)
+[![JobLibraryStubs](https://img.shields.io/badge/Job-build--stubs--lib--host--x86__64-lightgrey)](JobLibraryStubs)
+![badgeLibStubs](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibStubsCmake.json?service=github)
+![badgeLibStubs](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibStubsBuild.json?service=github)
 
 [![JobUTX8664](https://img.shields.io/badge/Job-UT--x86--64-lightgrey)](JOBUTX8664)
 ![badgeUTX8664CMake](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTX8664Cmake.json?service=github)
@@ -57,4 +59,31 @@ cd workspace/<REPO_DIR>
 
 All next steps should be executed from running docker image.
 
-TODO next steps
+Building library for host x86_64 - it can be used for testing.
+```sh
+bash scripts/buildLibraryForHost.sh
+```
+
+Building library for target Raspberry Pi Pico ARM32 CortexM0+ - this library should be linked in project in which you want to use it.
+```sh
+bash scripts/buildLibraryForTarget.sh
+```
+
+Building library with GoogleTest mocks for host x86_64 - it can be used for testing.
+```sh
+bash scripts/buildLibraryMocks.sh
+```
+
+Building library with stubs for host x86_64 - it can be used for testing.
+```sh
+bash scripts/buildLibraryStubs.sh
+```
+
+Building and running library unit tests (in Google Test) on host x86_64.
+```sh
+bash scripts/buildAndRunUt.sh
+```
+
+# Usage of library in external / desired projects
+
+TODO
