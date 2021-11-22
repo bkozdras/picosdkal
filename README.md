@@ -31,7 +31,7 @@ TODO
 ![badgeLibMocksCMake](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibMocksCmake.json?service=github)
 ![badgeLibMocksBuild](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibMocksBuild.json?service=github)
 
-[![JobLibraryStubs](https://img.shields.io/badge/Job-build--mocks--lib--host--x86__64-lightgrey)](JobLibraryMocks)
+[![JobLibraryStubs](https://img.shields.io/badge/Job-build--stubs--lib--host--x86__64-lightgrey)](JobLibraryMocks)
 ![badgeLibMocksStubs](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibStubsCmake.json?service=github)
 ![badgeLibMocksStubs](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeLibStubsBuild.json?service=github)
 
