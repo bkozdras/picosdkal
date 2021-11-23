@@ -8,7 +8,6 @@
 #define RPIPICOSDKAL_GPIO_DEFINITIONS_EGPIOPULLUP_HPP_
 
 #include <cstdint>
-#include <iostream>
 #include <string>
 
 namespace rpipicosdkal
