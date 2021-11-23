@@ -14,7 +14,7 @@ then
     exit -1
 fi
 
-ctest -j$(nproc --all) --output-on-failure --timeout 15
+ctest -j$(nproc --all) --output-on-failure
 
 if [ $? -ne 0 ]
 then

@@ -14,9 +14,9 @@ fi
 echo "Make version: $(make --version)"
 
 THIS_DIR_NAME=${PWD##*/}
-if [ "$THIS_DIR_NAME" != "build_ut_x86_64" ]
+if [ "$THIS_DIR_NAME" != "build_ut_valgrind_x86_64" ]
 then
-    echo "ERROR: CI pipeline issue! This script (runMake.sh) should be executed from build_ut_x86_64 directory!"
+    echo "ERROR: CI pipeline issue! This script (runMake.sh) should be executed from build_ut_valgrind_x86_64 directory!"
     echo "This directory: $THIS_DIR_NAME"
     exit -1
 fi

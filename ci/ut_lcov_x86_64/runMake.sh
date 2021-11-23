@@ -11,6 +11,7 @@ then
     echo "Make is not found!"
     exit -1
 fi
+echo "Make version: $(make --version)"
 
 THIS_DIR_NAME=${PWD##*/}
 if [ "$THIS_DIR_NAME" != "build_ut_lcov_x86_64" ]

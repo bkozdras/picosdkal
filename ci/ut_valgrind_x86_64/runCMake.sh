@@ -6,26 +6,30 @@
 
 #!/bin/bash
 
-if ! make --version &> /dev/null
+if ! cmake --version &> /dev/null
 then
-    echo "Make is not found!"
+    echo "CMake is not found!"
     exit -1
 fi
-echo "Make version: $(make --version)"
+echo "CMake version: $(cmake --version)"
 
 THIS_DIR_NAME=${PWD##*/}
-if [ "$THIS_DIR_NAME" != "build_ut_x86_64" ]
+if [ "$THIS_DIR_NAME" != "build_ut_valgrind_x86_64" ]
 then
-    echo "ERROR: CI pipeline issue! This script (runMake.sh) should be executed from build_ut_x86_64 directory!"
+    echo "ERROR: CI pipeline issue! This script (runCMake.sh) should be executed from build_ut_valgrind_x86_64 directory!"
     echo "This directory: $THIS_DIR_NAME"
     exit -1
 fi
 
-make -j$(nproc --all)
+cmake \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DCMAKE_C_COMPILER=gcc-$GCC_VERSION \
+    -DCMAKE_CXX_COMPILER=g++-$GCC_VERSION \
+    -DRPIPICOSDKAL_BUILD_UNIT_TESTS=ON ..
 
 if [ $? -ne 0 ]
 then
-    echo "Failure in make. Cleaning up directory..."
+    echo "Failure in cmake. Cleaning up directory..."
     rm -r -f *
     exit -1
 fi

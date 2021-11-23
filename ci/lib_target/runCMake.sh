@@ -11,6 +11,7 @@ then
     echo "CMake is not found!"
     exit -1
 fi
+echo "CMake version: $(cmake --version)"
 
 THIS_DIR_NAME=${PWD##*/}
 if [ "$THIS_DIR_NAME" != "build_lib_target" ]

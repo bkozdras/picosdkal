@@ -6,26 +6,27 @@
 
 #!/bin/bash
 
-if ! make --version &> /dev/null
+if ! valgrind --version &> /dev/null
 then
-    echo "Make is not found!"
+    echo "Valgrind is not found!"
     exit -1
 fi
-echo "Make version: $(make --version)"
+echo "Valgrind version: $(valgrind --version)"
 
 THIS_DIR_NAME=${PWD##*/}
-if [ "$THIS_DIR_NAME" != "build_ut_x86_64" ]
+if [ "$THIS_DIR_NAME" != "build_ut_valgrind_x86_64" ]
 then
-    echo "ERROR: CI pipeline issue! This script (runMake.sh) should be executed from build_ut_x86_64 directory!"
+    echo "ERROR: CI pipeline issue! This script (runCTestWithValgrind.sh) should be executed from build_ut_valgrind_x86_64 directory!"
     echo "This directory: $THIS_DIR_NAME"
     exit -1
 fi
 
-make -j$(nproc --all)
+valgrind --leak-check=full --track-origins=yes \
+    ctest -j$(nproc --all) --output-on-failure
 
 if [ $? -ne 0 ]
 then
-    echo "Failure in make. Cleaning up directory..."
+    echo "Failure in ctest. Cleaning up directory..."
     rm -r -f *
     exit -1
 fi

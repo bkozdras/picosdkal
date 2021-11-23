@@ -51,7 +51,7 @@ TODO
 ![badgeUTLcovX8664CMake](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTLcovX8664Cmake.json?service=github)
 ![badgeUTLcovX8664Build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTLcovX8664Build.json?service=github)
 ![badgeUTLcovX8664CTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTLcovX8664CTest.json?service=github)
-<a href='https://coveralls.io/github/bkozdras/picosdkal?branch=main'><img src='https://coveralls.io/repos/github/bkozdras/picosdkal/badge.svg?branch=main' alt='Coveralls.io' /></a>
+<a href='https://coveralls.io/github/bkozdras/picosdkal?branch=main'><img src='https://coveralls.io/repos/github/bkozdras/picosdkal/badge.svg?branch=main' alt='Go to report on Coveralls.io' /></a>
 
 # Preparing of local build environment
 
