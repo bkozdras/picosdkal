@@ -764,7 +764,7 @@ jobs:
           image: nemuuser/rpi-pico-build-env:latest
           options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
           run: |
-            cd workspace_ut_x86_64/build_ut_asan_x86_64
+            cd workspace_ut_asan_x86_64/build_ut_asan_x86_64
             bash ../ci/ut_asan_x86_64/runCMake.sh
       - name: "Create badge UTAsanX8664Cmake with passing state"
         uses: schneegans/dynamic-badges-action@v1.0.0
@@ -793,7 +793,7 @@ jobs:
           image: nemuuser/rpi-pico-build-env:latest
           options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
           run: |
-            cd workspace_ut_x86_64/build_ut_asan_x86_64
+            cd workspace_ut_asan_x86_64/build_ut_asan_x86_64
             bash ../ci/ut_asan_x86_64/runMake.sh
       - name: "Create badge UTAsanX8664Build with passing state"
         uses: schneegans/dynamic-badges-action@v1.0.0
@@ -822,7 +822,7 @@ jobs:
           image: nemuuser/rpi-pico-build-env:latest
           options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
           run: |
-            cd workspace_ut_x86_64/build_ut_asan_x86_64
+            cd workspace_ut_asan_x86_64/build_ut_asan_x86_64
             bash ../ci/ut_asan_x86_64/runCTest.sh
       - name: "Create badge UTAsanX8664CTest with passing state"
         uses: schneegans/dynamic-badges-action@v1.0.0
