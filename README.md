@@ -47,6 +47,12 @@ TODO
 ![badgeUTAsanX8664Build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTAsanX8664Build.json?service=github)
 ![badgeUTAsanX8664CTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTAsanX8664CTest.json?service=github)
 
+[![JobUTLcovX8664](https://img.shields.io/badge/Job-UT--with--code--coverage--generating--x86__64-lightgrey)](JOBUTLCOVX8664)
+![badgeUTLcovX8664CMake](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTLcovX8664Cmake.json?service=github)
+![badgeUTLcovX8664Build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTLcovX8664Build.json?service=github)
+![badgeUTLcovX8664CTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTLcovX8664CTest.json?service=github)
+<a href='https://coveralls.io/github/bkozdras/picosdkal?branch=main'><img src='https://coveralls.io/repos/github/bkozdras/picosdkal/badge.svg?branch=main' alt='Coveralls.io' /></a>
+
 # Preparing of local build environment
 
 All build commands should be executed from docker image attached to this repo as submodule: dockerenv.
@@ -87,6 +93,16 @@ bash scripts/buildLibraryStubs.sh
 Building and running library unit tests (in Google Test) on host x86_64.
 ```sh
 bash scripts/buildAndRunUt.sh
+```
+
+Building and running library unit tests (in Google Test) on host x86_64 with enabled address sanitizer.
+```sh
+bash scripts/buildAndRunUtWithAsan.sh
+```
+
+Building and running library unit tests (in Google Test) on host x86_64 with enabled code coverage generating (used lcov).
+```sh
+bash scripts/buildAndRunUtWithLcov.sh
 ```
 
 # Usage of library in external / desired projects

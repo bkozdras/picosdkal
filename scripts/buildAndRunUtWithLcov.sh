@@ -1,6 +1,7 @@
 #**********************************************************************************#
 # Copyright by @bkozdras <b.kozdras@gmail.com>                                     #
 # Purpose: To build and run unit tests for Raspberry Pi Pico SDK Abstract Layer.   #
+#          Unit tests code coverage for system under test is generated.            #
 # Version: 1.0                                                                     #
 # Licence: MIT                                                                     #
 #**********************************************************************************#
@@ -38,7 +39,7 @@ mkdir -p build
 cd build
 
 THIS_ARCH=$(uname -m | tr -d '\n')
-BUILD_DIR=local_ut_asan_$THIS_ARCH
+BUILD_DIR=local_ut_lcov_$THIS_ARCH
 
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
@@ -47,9 +48,9 @@ cmake \
     -DCMAKE_BUILD_TYPE=Debug \
     -DCMAKE_C_COMPILER=gcc-$GCC_VERSION \
     -DCMAKE_CXX_COMPILER=g++-$GCC_VERSION \
-    -DRPIPICOSDKAL_UNIT_TESTS_USE_ADDRESS_SANITIZER=ON \
+    -DRPIPICOSDKAL_UNIT_TESTS_GENERATE_CODE_COVERAGE=ON \
     -DRPIPICOSDKAL_BUILD_UNIT_TESTS=ON ../.. \
     && make -j$(nproc --all) \
-    && ctest -j$(nproc --all) --output-on-failure --timeout 15
+    && make -j$(nproc --all) ut-with-code-coverage
 
 exit 0
