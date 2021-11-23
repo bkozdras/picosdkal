@@ -129,7 +129,7 @@ jobs:
           label: CTest
           message: unknown
           color: grey
-      - name: "Create badge UTXAsan8664Cmake with unknown state"
+      - name: "Create badge UTAsanX8664Cmake with unknown state"
         uses: schneegans/dynamic-badges-action@v1.0.0
         with:
           auth: ${{ secrets.GIST_CI_TOKEN }}
@@ -153,6 +153,33 @@ jobs:
           auth: ${{ secrets.GIST_CI_TOKEN }}
           gistID: cd2e383311dea01e5e1b133a9769a413
           filename: badgeUTAsanX8664CTest.json
+          label: CTest
+          message: unknown
+          color: grey
+      - name: "Create badge UTLcovX8664Cmake with unknown state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTLcovX8664Cmake.json
+          label: CMake
+          message: unknown
+          color: grey
+      - name: "Create badge UTLcovX8664Build with unknown state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTLcovX8664Build.json
+          label: Make-Build
+          message: unknown
+          color: grey
+      - name: "Create badge UTLcovX8664CTest with unknown state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTLcovX8664CTest.json
           label: CTest
           message: unknown
           color: grey
@@ -973,6 +1000,24 @@ jobs:
           label: CTest
           message: failing
           color: red
+      - name: "Prepare coverage output file to be published to coveralls.io"
+        uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          image: nemuuser/rpi-pico-build-env:latest
+          options: -v ${{ github.workspace }}:/workspace_ut_lcov_x86_64
+          run: |
+            cd workspace_ut_lcov_x86_64/build_ut_lcov_x86_64
+            cat ut-with-code-coverage.info
+            sed -i 's|SF:/workspace_ut_lcov_x86_64/|SF:|g' ut-with-code-coverage.info
+            cat ut-with-code-coverage.info
+      - name: "Publish code coverate report on coveralls.io"
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: "Raspberry Pi Pico SDK Abstract Layer Library Unit Tests Code Coverage"
+          path-to-lcov: ${{ github.workspace }}/build_ut_lcov_x86_64/ut-with-code-coverage.info
       - name: "Cleanup build artifacts"
         if: ${{ always() }}
         uses: addnab/docker-run-action@v3
