@@ -1096,7 +1096,7 @@ jobs:
           image: nemuuser/rpi-pico-build-env:latest
           options: -v ${{ github.workspace }}:/workspace_ut_valgrind_x86_64
           run: |
-            cd workspace_ut_valgrind_x86_64/build_ut_lcov_x86_64
+            cd workspace_ut_valgrind_x86_64/build_ut_valgrind_x86_64
             bash ../ci/ut_valgrind_x86_64/runCMake.sh
       - name: "Create badge UTValgrindX8664Cmake with passing state"
         uses: schneegans/dynamic-badges-action@v1.0.0
@@ -1182,7 +1182,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           image: nemuuser/rpi-pico-build-env:latest
-          options: -v ${{ github.workspace }}:/workspace_ut_lcov_x86_64
+          options: -v ${{ github.workspace }}:/workspace_ut_valgrind_x86_64
           run: |
-            cd workspace_ut_lcov_x86_64
-            rm -r -f build_ut_lcov_x86_64
+            cd workspace_ut_valgrind_x86_64
+            rm -r -f build_ut_valgrind_x86_64
