@@ -32,3 +32,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-field-initializers -Wnon-virtu
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og -fno-inline -ggdb3")
 
 add_subdirectory(gpio)
+
+if (UNIT_TESTS_GENERATE_CODE_COVERAGE)
+    setup_target_for_coverage_lcov(
+        NAME ut-code-coverage
+        EXECUTABLE ctest -j ${PROCESSOR_COUNT}
+        DEPENDENCIES ${PROJECT_NAME_PREFIX}_library
+        EXCLUDE "build*/" "mock/*" "picosdkhostinterface/*" "stub/*" "test/*"
+        LCOV_ARGS --no-external)
+endif (UNIT_TESTS_GENERATE_CODE_COVERAGE)

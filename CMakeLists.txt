@@ -63,6 +63,19 @@ message(STATUS "CMAKE_ASM_COMPILER = ${CMAKE_ASM_COMPILER}")
 
 include_directories(include)
 
+if (UNIT_TESTS_GENERATE_CODE_COVERAGE)
+    include(cmake/CodeCoverage.cmake)
+    append_coverage_compiler_flags()
+    add_compile_options(-O0)
+endif (UNIT_TESTS_GENERATE_CODE_COVERAGE)
+
+if (UNIT_TESTS_USE_ADDRESS_SANITIZER)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-omit-frame-pointer -fsanitize=address -fsanitize=leak -g")
+    set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address -fsanitize=leak")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address -fsanitize=leak")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address -fsanitize=leak")
+endif (UNIT_TESTS_USE_ADDRESS_SANITIZER)
+
 if (BUILD_LIB_MOCKS_FOR_HOST OR BUILD_LIB_STUBS_FOR_HOST OR BUILD_UNIT_TESTS)
     include(cmake/FetchAndInitializeGTest.cmake)
 endif (BUILD_LIB_MOCKS_FOR_HOST OR BUILD_LIB_STUBS_FOR_HOST OR BUILD_UNIT_TESTS)

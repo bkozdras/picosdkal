@@ -42,6 +42,11 @@ TODO
 ![badgeUTX8664Build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTX8664Build.json?service=github)
 ![badgeUTX8664CTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTX8664CTest.json?service=github)
 
+[![JobUTAsanX8664](https://img.shields.io/badge/Job-UT--with--address--sanitizer--x86__64-lightgrey)](JOBUTASANX8664)
+![badgeUTAsanX8664CMake](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTAsanX8664Cmake.json?service=github)
+![badgeUTAsanX8664Build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTAsanX8664Build.json?service=github)
+![badgeUTAsanX8664CTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTAsanX8664CTest.json?service=github)
+
 # Preparing of local build environment
 
 All build commands should be executed from docker image attached to this repo as submodule: dockerenv.

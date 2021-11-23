@@ -697,3 +697,133 @@ jobs:
           run: |
             cd workspace_ut_x86_64
             rm -r -f build_ut_x86_64
+  build-and-run-UT-with-asan-x86_64:
+    runs-on: [self-hosted]
+    needs: build-docker-image
+    steps:
+      - name: Checkout / clone GitHub repo
+        uses: actions/checkout@main
+        with:
+          submodules: true
+      - name: Set executable privileges to CI run scripts
+        run: |
+          chmod +x ${{ github.workspace }}/ci/ut_asan_x86_64/runCMake.sh
+          chmod +x ${{ github.workspace }}/ci/ut_asan_x86_64/runCTest.sh
+          chmod +x ${{ github.workspace }}/ci/ut_asan_x86_64/runMake.sh
+      - name: "Check docker container availability"
+        uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          image: nemuuser/rpi-pico-build-env:latest
+          options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
+          run: |
+            echo "Executed in docker container. Test: OK!"
+      - name: "Create directory for build artifacts"
+        uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          image: nemuuser/rpi-pico-build-env:latest
+          options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
+          run: |
+            cd workspace_ut_asan_x86_64
+            mkdir -p build_ut_asan_x86_64
+      - name: "Run CMake for UT"
+        uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          image: nemuuser/rpi-pico-build-env:latest
+          options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
+          run: |
+            cd workspace_ut_x86_64/build_ut_asan_x86_64
+            bash ../ci/ut_asan_x86_64/runCMake.sh
+      - name: "Create badge UTAsanX8664Cmake with passing state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664Cmake.json
+          label: CMake
+          message: passing
+          color: green
+      - name: "Create badge UTXAsan8664Cmake with failing state"
+        if: ${{ failure() }}
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664Cmake.json
+          label: CMake
+          message: failing
+          color: red
+      - name: "Run Make for UT"
+        uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          image: nemuuser/rpi-pico-build-env:latest
+          options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
+          run: |
+            cd workspace_ut_x86_64/build_ut_asan_x86_64
+            bash ../ci/ut_asan_x86_64/runMake.sh
+      - name: "Create badge UTAsanX8664Build with passing state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664Build.json
+          label: Make-Build
+          message: passing
+          color: green
+      - name: "Create badge UTAsanX8664Build with failing state"
+        if: ${{ failure() }}
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664Build.json
+          label: Make-Build
+          message: failing
+          color: red
+      - name: "Run CTest for UT"
+        uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          image: nemuuser/rpi-pico-build-env:latest
+          options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
+          run: |
+            cd workspace_ut_x86_64/build_ut_asan_x86_64
+            bash ../ci/ut_asan_x86_64/runCTest.sh
+      - name: "Create badge UTAsanX8664CTest with passing state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664CTest.json
+          label: CTest
+          message: passing
+          color: green
+      - name: "Create badge UTAsanX8664CTest with failing state"
+        if: ${{ failure() }}
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664CTest.json
+          label: CTest
+          message: failing
+          color: red
+      - name: "Cleanup build artifacts"
+        if: ${{ always() }}
+        uses: addnab/docker-run-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          image: nemuuser/rpi-pico-build-env:latest
+          options: -v ${{ github.workspace }}:/workspace_ut_asan_x86_64
+          run: |
+            cd workspace_ut_asan_x86_64
+            rm -r -f build_ut_asan_x86_64
