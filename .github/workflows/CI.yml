@@ -129,6 +129,33 @@ jobs:
           label: CTest
           message: unknown
           color: grey
+      - name: "Create badge UTXAsan8664Cmake with unknown state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664Cmake.json
+          label: CMake
+          message: unknown
+          color: grey
+      - name: "Create badge UTAsanX8664Build with unknown state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664Build.json
+          label: Make-Build
+          message: unknown
+          color: grey
+      - name: "Create badge UTAsanX8664CTest with unknown state"
+        uses: schneegans/dynamic-badges-action@v1.0.0
+        with:
+          auth: ${{ secrets.GIST_CI_TOKEN }}
+          gistID: cd2e383311dea01e5e1b133a9769a413
+          filename: badgeUTAsanX8664CTest.json
+          label: CTest
+          message: unknown
+          color: grey
   build-docker-image:
     runs-on: self-hosted
     needs: set-unknown-state-badges-for-CI
