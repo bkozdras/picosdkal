@@ -53,6 +53,11 @@ TODO
 ![badgeUTLcovX8664CTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTLcovX8664CTest.json?service=github)
 <a href='https://coveralls.io/github/bkozdras/picosdkal?branch=main'><img src='https://coveralls.io/repos/github/bkozdras/picosdkal/badge.svg?branch=main' alt='Go to report on Coveralls.io' /></a>
 
+[![JobUTValgrindX8664](https://img.shields.io/badge/Job-UT--with--valgrind--x86__64-lightgrey)](JOBUTVALGRINDX8664)
+![badgeUTValgrindX8664CMake](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTValgrindX8664Cmake.json?service=github)
+![badgeUTValgrindX8664Build](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTValgrindX8664Build.json?service=github)
+![badgeUTValgrindX8664CTest](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/bkozdras/cd2e383311dea01e5e1b133a9769a413/raw/badgeUTValgrindX8664CTest.json?service=github)
+
 # Preparing of local build environment
 
 All build commands should be executed from docker image attached to this repo as submodule: dockerenv.
@@ -103,6 +108,11 @@ bash scripts/buildAndRunUtWithAsan.sh
 Building and running library unit tests (in Google Test) on host x86_64 with enabled code coverage generating (used lcov).
 ```sh
 bash scripts/buildAndRunUtWithLcov.sh
+```
+
+Building and running valgrind with unit tests (in Google Test) on host x86_64.
+```sh
+bash scripts/buildAndRunUtWithValgrind.sh
 ```
 
 # Usage of library in external / desired projects

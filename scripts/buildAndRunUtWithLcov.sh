@@ -39,7 +39,7 @@ mkdir -p build
 cd build
 
 THIS_ARCH=$(uname -m | tr -d '\n')
-BUILD_DIR=local_ut_lcov_$THIS_ARCH
+BUILD_DIR=local_ut_$THIS_ARCH
 
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
