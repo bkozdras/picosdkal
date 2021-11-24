@@ -13,19 +13,34 @@ void gpio_set_function(uint gpio, enum gpio_function fn)
 {
 }
 
+enum gpio_function gpio_get_function(uint gpio)
+{
+    return GPIO_FUNC_SIO;
+}
+
+void gpio_set_pulls(uint gpio, bool up, bool down)
+{
+}
+
 void gpio_pull_up(uint gpio)
 {
+}
+
+bool gpio_is_pulled_up(uint gpio)
+{
+    return true;
 }
 
 void gpio_pull_down(uint gpio)
 {
 }
 
-void gpio_disable_pulls(uint gpio)
+bool gpio_is_pulled_down(uint gpio)
 {
+    return false;
 }
 
-void gpio_set_pulls(uint gpio, bool up, bool down)
+void gpio_disable_pulls(uint gpio)
 {
 }
 
@@ -42,6 +57,10 @@ void gpio_set_inover(uint gpio, uint value)
 }
 
 void gpio_set_oeover(uint gpio, uint value)
+{
+}
+
+void gpio_set_input_enabled(uint gpio, bool enable)
 {
 }
 
@@ -77,11 +96,23 @@ void gpio_set_irq_enabled(uint gpio, uint32_t events, bool enable)
 {
 }
 
+void gpio_set_irq_enabled_with_callback(uint gpio, uint32_t events, bool enabled, gpio_irq_callback_t callback)
+{
+}
+
+void gpio_set_dormant_irq_enabled(uint gpio, uint32_t events, bool enabled)
+{
+}
+
 void gpio_acknowledge_irq(uint gpio, uint32_t events)
 {
 }
 
 void gpio_init(uint gpio)
+{
+}
+
+void gpio_init_mask(uint gpio_mask)
 {
 }
 
@@ -115,8 +146,13 @@ void gpio_put_all(uint32_t value)
 {
 }
 
-void gpio_put(uint gpio, int value)
+void gpio_put(uint gpio, bool value)
 {
+}
+
+bool gpio_get_out_level(uint gpio)
+{
+    return true;
 }
 
 void gpio_set_dir_out_masked(uint32_t mask)
@@ -139,16 +175,9 @@ void gpio_set_dir(uint gpio, bool out)
 {
 }
 
-void gpio_debug_pins_init()
+bool gpio_is_dir_out(uint gpio)
 {
-}
-
-void gpio_set_input_enabled(uint gpio, bool enable)
-{
-}
-
-void gpio_init_mask(uint gpio_mask)
-{
+    return true;
 }
 
 }  // extern "C"

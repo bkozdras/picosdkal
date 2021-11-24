@@ -68,12 +68,12 @@ TEST_F(GpioStateControllerShould, returnCorrectOutputLevel)
 TEST_F(GpioStateControllerShould, setCorrectGpioLevel)
 {
     {
-        EXPECT_CALL(picoGpioMock_, gpio_put(testedGpioNumber_, 1))
+        EXPECT_CALL(picoGpioMock_, gpio_put(testedGpioNumber_, true))
             .Times(1u);
         sut_->setOutputLevel(testedGpioNumber_, definitions::EGpioState::High);
     }
     {
-        EXPECT_CALL(picoGpioMock_, gpio_put(testedGpioNumber_, 0))
+        EXPECT_CALL(picoGpioMock_, gpio_put(testedGpioNumber_, false))
             .Times(1u);
         sut_->setOutputLevel(testedGpioNumber_, definitions::EGpioState::Low);
     }

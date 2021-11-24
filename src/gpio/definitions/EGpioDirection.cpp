@@ -4,30 +4,25 @@
 /* Licence: MIT                                                                   */
 /**********************************************************************************/
 
-#ifndef RPIPICOSDKAL_GPIO_IGPIOSETTINGSCONTROLLER_HPP_
-#define RPIPICOSDKAL_GPIO_IGPIOSETTINGSCONTROLLER_HPP_
-
-#include <cstdint>
-#include <memory>
-
-#include <rpipicosdkal/gpio/core/Types.hpp>
 #include <rpipicosdkal/gpio/definitions/EGpioDirection.hpp>
-#include <rpipicosdkal/gpio/definitions/EGpioPullUp.hpp>
 
 namespace rpipicosdkal
 {
 namespace gpio
 {
-
-class IGpioStateController
+namespace definitions
 {
-public:
-    virtual ~IGpioStateController() = default;
 
-    virtual void setGpioDirection(const core::TGpioNumber gpioNumber, const EGpioDirection gpioDirection) = 0;
-};
+std::string toString(const EGpioDirection gpioDirection)
+{
+    switch (gpioDirection)
+    {
+        case EGpioDirection::Input: return "Input";
+        case EGpioDirection::Output: return "Output";
+    }
+    return std::to_string(static_cast<uint8_t>(gpioDirection));
+}
 
+}  // namespace definitions
 }  // namespace gpio
 }  // namespace rpipicosdkal
-
-#endif  // RPIPICOSDKAL_GPIO_IGPIOSETTINGSCONTROLLER_HPP_

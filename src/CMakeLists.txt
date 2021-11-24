@@ -12,11 +12,14 @@ set(PROJECT_NAME ${PROJECT_NAME_PREFIX}_${PACKAGE_NAME_LOCAL})
 
 project(${PROJECT_NAME})
 
+add_subdirectory(core)
 add_subdirectory(gpio)
 
 add_library(${PROJECT_NAME} STATIC)
 
 target_link_libraries(${PROJECT_NAME}
-    ${PROJECT_NAME}_gpio)
+    ${PROJECT_NAME}_core
+    ${PROJECT_NAME}_gpio
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)

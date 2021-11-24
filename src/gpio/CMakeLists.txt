@@ -23,14 +23,23 @@ target_sources(${PROJECT_NAME}
         ${LOCAL_HEADERS_DIR}/gpio/GpioInterruptController.hpp
         ${LOCAL_HEADERS_DIR}/gpio/GpioSettingsController.hpp
         ${LOCAL_HEADERS_DIR}/gpio/GpioStateController.hpp
+        ${LOCAL_HEADERS_DIR}/gpio/definitions/fwd.hpp
+        ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioDirection.hpp
+        ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioDriveStrength.hpp
+        ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioFunction.hpp
         ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioPullUp.hpp
+        ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioSlewRate.hpp
         ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioState.hpp
 
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioInterruptController.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioSettingsController.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioStateController.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioDirection.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioDriveStrength.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioFunction.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioPullUp.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioSlewRate.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioState.cpp
 )
 
@@ -43,6 +52,7 @@ if (BUILD_LIB_FOR_TARGET)
     target_link_libraries(${PROJECT_NAME}
         hardware_gpio
         hardware_irq
+        ${PROJECT_NAME_PREFIX}_library_core
     )
 else ()
     if (BUILD_UNIT_TESTS)
