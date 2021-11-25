@@ -28,7 +28,7 @@ target_sources(${PROJECT_NAME}
         ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioDriveStrength.hpp
         ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioFunction.hpp
         ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioPullUp.hpp
-        ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioSlewRate.hpp
+        ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioSlewRateLimiting.hpp
         ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioState.hpp
 
     PRIVATE
@@ -39,7 +39,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioDriveStrength.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioFunction.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioPullUp.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioSlewRate.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioSlewRateLimiting.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioState.cpp
 )
 

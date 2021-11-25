@@ -17,6 +17,7 @@ std::string toString(const EGpioPullUp gpioPullUp)
 {
     switch (gpioPullUp)
     {
+        case EGpioPullUp::NotPulled: return "NotPulled";
         case EGpioPullUp::Up: return "Up";
         case EGpioPullUp::Down: return "Down";
         case EGpioPullUp::BusKeep: return "BusKeep";

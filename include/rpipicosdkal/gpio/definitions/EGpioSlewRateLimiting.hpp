@@ -16,13 +16,13 @@ namespace gpio
 namespace definitions
 {
 
-enum class EGpioSlewRate
+enum class EGpioSlewRateLimiting
 {
-    Slow = 0u,
-    Fast = 1u
+    Disabled = 0u,
+    Enabled = 1u
 };
 
-std::string toString(const EGpioSlewRate gpioSlewRate);
+std::string toString(const EGpioSlewRateLimiting gpioSlewRateLimiting);
 
 }  // namespace definitions
 }  // namespace gpio

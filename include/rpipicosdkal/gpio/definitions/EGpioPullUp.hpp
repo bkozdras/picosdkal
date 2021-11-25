@@ -18,9 +18,10 @@ namespace definitions
 
 enum class EGpioPullUp
 {
-    Up = 0u,
-    Down = 1u,
-    BusKeep = 2u
+    NotPulled = 0u,
+    Up = 1u,
+    Down = 2u,
+    BusKeep = 3u
 };
 
 std::string toString(const EGpioPullUp gpioPullUp);

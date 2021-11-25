@@ -4,25 +4,29 @@
 /* Licence: MIT                                                                   */
 /**********************************************************************************/
 
-#include <rpipicosdkal/gpio/definitions/EGpioSlewRate.hpp>
+#include <rpipicosdkal/core/definitions/EOperationResult.hpp>
+
+#include <cstdint>
 
 namespace rpipicosdkal
 {
-namespace gpio
+namespace core
 {
 namespace definitions
 {
 
-std::string toString(const EGpioSlewRate gpioSlewRate)
+std::string toString(const EOperationResult operationResult)
 {
-    switch (gpioSlewRate)
+    switch (operationResult)
     {
-        case EGpioSlewRate::Slow: return "Slow";
-        case EGpioSlewRate::Fast: return "Fast";
+        case EOperationResult::Success: return "Success";
+        case EOperationResult::UndefinedError: return "UndefinedError";
+        case EOperationResult::InvalidArgument: return "InvalidArgument";
+        case EOperationResult::NotPossible: return "NotPossible";
     }
-    return std::to_string(static_cast<uint8_t>(gpioSlewRate));
+    return std::to_string(static_cast<uint8_t>(operationResult));
 }
 
 }  // namespace definitions
-}  // namespace gpio
+}  // namespace core
 }  // namespace rpipicosdkal

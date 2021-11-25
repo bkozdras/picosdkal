@@ -4,11 +4,7 @@
 /* Licence: MIT                                                                   */
 /**********************************************************************************/
 
-#ifndef RPIPICOSDKAL_GPIO_DEFINITIONS_FWD_HPP_
-#define RPIPICOSDKAL_GPIO_DEFINITIONS_FWD_HPP_
-
-#include <cstdint>
-#include <string>
+#include <rpipicosdkal/gpio/definitions/EGpioSlewRateLimiting.hpp>
 
 namespace rpipicosdkal
 {
@@ -17,15 +13,16 @@ namespace gpio
 namespace definitions
 {
 
-enum class EGpioDirection;
-enum class EGpioDriveStrength;
-enum class EGpioFunction;
-enum class EGpioPullUp;
-enum class EGpioSlewRateLimiting;
-enum class EGpioState;
+std::string toString(const EGpioSlewRateLimiting gpioSlewRateLimiting)
+{
+    switch (gpioSlewRateLimiting)
+    {
+        case EGpioSlewRateLimiting::Disabled: return "Disabled";
+        case EGpioSlewRateLimiting::Enabled: return "Enabled";
+    }
+    return std::to_string(static_cast<uint8_t>(gpioSlewRateLimiting));
+}
 
 }  // namespace definitions
 }  // namespace gpio
 }  // namespace rpipicosdkal
-
-#endif  // RPIPICOSDKAL_GPIO_DEFINITIONS_FWD_HPP_
