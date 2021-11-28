@@ -265,7 +265,11 @@ std::optional<definitions::EGpioPullUp> GpioSettingsController::getGpioPullUp(
     {
         return definitions::EGpioPullUp::Up;
     }
-    return definitions::EGpioPullUp::Down;
+    if (isPulledDown)
+    {
+        return definitions::EGpioPullUp::Down;
+    }
+    return definitions::EGpioPullUp::NotPulled;
 }
 
 core::definitions::EOperationResult GpioSettingsController::setGpioPullUp(
@@ -291,6 +295,11 @@ core::definitions::EOperationResult GpioSettingsController::setGpioPullUp(
         case definitions::EGpioPullUp::Up:
         {
             ::gpio_set_pulls(static_cast<uint>(gpioNumber), true, false);
+            break;
+        }
+        case definitions::EGpioPullUp::NotPulled:
+        {
+            ::gpio_set_pulls(static_cast<uint>(gpioNumber), false, false);
             break;
         }
     }

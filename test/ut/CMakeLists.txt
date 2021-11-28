@@ -38,7 +38,7 @@ if (UNIT_TESTS_GENERATE_CODE_COVERAGE)
     setup_target_for_coverage_lcov(
         NAME ut-with-code-coverage
         EXECUTABLE ctest -j ${PROCESSOR_COUNT}
-        DEPENDENCIES ${PROJECT_NAME_PREFIX}_library
+        DEPENDENCIES ${UT_COMMON_LIBRARY}
         EXCLUDE "build*/" "mock/*" "picosdkhostinterface/*" "stub/*" "test/*"
         LCOV_ARGS --no-external)
 endif (UNIT_TESTS_GENERATE_CODE_COVERAGE)

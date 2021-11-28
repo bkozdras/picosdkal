@@ -1,4 +1,4 @@
 [submodule "docker-rpi-pico-build-env"]
 	path = dockerenv
 	url = git@github.com:bkozdras/docker-rpi-pico-build-env.git
-	branch = v1.0
+	branch = v1.1
