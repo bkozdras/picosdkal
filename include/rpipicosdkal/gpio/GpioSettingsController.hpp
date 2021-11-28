@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <optional>
+#include <string>
 
 #include <rpipicosdkal/core/Types.hpp>
 #include <rpipicosdkal/core/definitions/EOperationResult.hpp>
@@ -63,6 +64,8 @@ public:
 
 private:
     GpioSettingsController();
+
+    static const std::string loggerPrefix_;
 };
 
 }  // namespace gpio

@@ -4,30 +4,33 @@
 /* Licence: MIT                                                                   */
 /**********************************************************************************/
 
-#ifndef RPIPICOSDKAL_CORE_DEFINITIONS_ELOGSEVERITY_HPP_
-#define RPIPICOSDKAL_CORE_DEFINITIONS_ELOGSEVERITY_HPP_
+#include <rpipicosdkal/core/detail/LoggerFlusher.hpp>
 
-#include <string>
+#include <iostream>
 
 namespace rpipicosdkal
 {
 namespace core
 {
-namespace definitions
+namespace detail
 {
 
-enum class ELogSeverity
+LoggerFlusher::LoggerFlusher(const definitions::ELogSeverity logSeverity,
+        const std::string& prefix)
+    : outStr_()
 {
-    Debug = 0u,
-    Info = 1u,
-    Warning = 2u,
-    Error = 3u
-};
+    outStr_ << "["
+        << definitions::toString(logSeverity)
+        << "]["
+        << prefix
+        << "]: ";
+}
 
-std::string toString(const ELogSeverity logSeverity);
+LoggerFlusher::~LoggerFlusher()
+{
+    std::cout << outStr_.str() << std::endl;
+}
 
-}  // namespace definitions
+}  // namespace detail
 }  // namespace core
 }  // namespace rpipicosdkal
-
-#endif  // RPIPICOSDKAL_CORE_DEFINITIONS_ELOGSEVERITY_HPP_

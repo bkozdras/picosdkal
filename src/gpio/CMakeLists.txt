@@ -48,11 +48,14 @@ target_include_directories(${PROJECT_NAME}
         ${INCLUDE_DIR}
 )
 
+target_link_libraries(${PROJECT_NAME}
+    ${PROJECT_NAME_PREFIX}_library_core
+)
+
 if (BUILD_LIB_FOR_TARGET)
     target_link_libraries(${PROJECT_NAME}
         hardware_gpio
         hardware_irq
-        ${PROJECT_NAME_PREFIX}_library_core
     )
 else ()
     if (BUILD_UNIT_TESTS)

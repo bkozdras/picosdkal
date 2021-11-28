@@ -24,8 +24,13 @@ target_sources(${PROJECT_NAME}
         ${LOCAL_HEADERS_DIR}/core/definitions/EOperationResult.hpp
 
     PRIVATE
+        ${LOCAL_HEADERS_DIR}/core/detail/LoggerFlusher.hpp
+
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/ELogSeverity.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EOperationResult.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/LoggerFlusher.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

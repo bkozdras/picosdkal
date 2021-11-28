@@ -14,6 +14,7 @@ namespace core
 namespace definitions
 {
 
+enum class ELogSeverity;
 enum class EOperationResult;
 
 }  // namespace definitions
