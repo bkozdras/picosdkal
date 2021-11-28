@@ -43,13 +43,13 @@ public:
         const core::TGpioNumber gpioNumber,
         const definitions::EGpioDriveStrength gpioDriveStrength) override;
 
-    definitions::EGpioFunction getGpioFunction(
+    std::optional<definitions::EGpioFunction> getGpioFunction(
         const core::TGpioNumber gpioNumber) override;
     core::definitions::EOperationResult setGpioFunction(
         const core::TGpioNumber gpioNumber,
         const definitions::EGpioFunction gpioFunction) override;
 
-    definitions::EGpioPullUp getGpioPullUp(
+    std::optional<definitions::EGpioPullUp> getGpioPullUp(
         const core::TGpioNumber gpioNumber) override;
     core::definitions::EOperationResult setGpioPullUp(
         const core::TGpioNumber gpioNumber,

@@ -40,13 +40,13 @@ public:
         const core::TGpioNumber gpioNumber,
         const definitions::EGpioDriveStrength gpioDriveStrength) = 0;
 
-    virtual definitions::EGpioFunction getGpioFunction(
+    virtual std::optional<definitions::EGpioFunction> getGpioFunction(
         const core::TGpioNumber gpioNumber) = 0;
     virtual core::definitions::EOperationResult setGpioFunction(
         const core::TGpioNumber gpioNumber,
         const definitions::EGpioFunction gpioFunction) = 0;
 
-    virtual definitions::EGpioPullUp getGpioPullUp(
+    virtual std::optional<definitions::EGpioPullUp> getGpioPullUp(
         const core::TGpioNumber gpioNumber) = 0;
     virtual core::definitions::EOperationResult setGpioPullUp(
         const core::TGpioNumber gpioNumber,

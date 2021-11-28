@@ -480,4 +480,9 @@ bool gpio_is_dir_out(uint gpio)
     return gpio_is_dir_out_impl(gpio);
 }
 
+uint gpio_get_dir(uint gpio)
+{
+    return gpio_get_dir_impl(gpio);
+}
+
 }  // extern "C"

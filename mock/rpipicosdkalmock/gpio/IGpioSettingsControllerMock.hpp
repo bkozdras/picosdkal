@@ -52,11 +52,11 @@ public:
     MOCK_METHOD2(setGpioDriveStrength,
         core::definitions::EOperationResult(const core::TGpioNumber, const definitions::EGpioDriveStrength));
 
-    MOCK_METHOD1(getGpioFunction, definitions::EGpioFunction(const core::TGpioNumber));
+    MOCK_METHOD1(getGpioFunction, std::optional<definitions::EGpioFunction>(const core::TGpioNumber));
     MOCK_METHOD2(setGpioFunction,
         core::definitions::EOperationResult(const core::TGpioNumber, const definitions::EGpioFunction));
 
-    MOCK_METHOD1(getGpioPullUp, definitions::EGpioPullUp(const core::TGpioNumber));
+    MOCK_METHOD1(getGpioPullUp, std::optional<definitions::EGpioPullUp>(const core::TGpioNumber));
     MOCK_METHOD2(setGpioPullUp,
         core::definitions::EOperationResult(const core::TGpioNumber, const definitions::EGpioPullUp));
 

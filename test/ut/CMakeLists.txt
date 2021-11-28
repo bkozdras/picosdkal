@@ -24,6 +24,7 @@ target_link_libraries(${UT_COMMON_LIBRARY}
     PUBLIC
         ${PROJECT_NAME_PREFIX}_library
         ${PROJECT_NAME_PREFIX}_test_picosdkmock
+        ${PROJECT_NAME_PREFIX}_test_testutil
         gmock
         pthread
 )

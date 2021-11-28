@@ -6,6 +6,8 @@
 
 #include <rpipicosdkal/gpio/GpioSettingsController.hpp>
 
+#include <vector>
+
 #include <hardware/gpio.h>
 
 namespace rpipicosdkal
@@ -15,6 +17,33 @@ namespace gpio
 
 namespace
 {
+
+std::vector<core::TGpioNumber> getAllGpioNumbers()
+{
+    std::vector<core::TGpioNumber> allPicoGpioNumbers;
+    for (auto gpioNumber = 0u; gpioNumber <= 22u; ++gpioNumber)
+    {
+        allPicoGpioNumbers.push_back(gpioNumber);
+    }
+    for (auto gpioNumber = 26u; gpioNumber <= 28u; ++gpioNumber)
+    {
+        allPicoGpioNumbers.push_back(gpioNumber);
+    }
+    return allPicoGpioNumbers;
+}
+
+bool isGpioNumberCorrect(const core::TGpioNumber gpioNumber)
+{
+    if (gpioNumber <= 22u)
+    {
+        return true;
+    }
+    if (gpioNumber >= 26u && gpioNumber <= 28u)
+    {
+        return true;
+    }
+    return false;
+}
 
 definitions::EGpioDriveStrength toPicoSdkAlGpioDriveStrength(
     const enum gpio_drive_strength gpioDriveStrength)
@@ -108,6 +137,12 @@ enum gpio_slew_rate toPicoSdkGpioSlewRate(
 
 GpioSettingsController::GpioSettingsController()
 {
+    const auto allPicoGpioNumbers = getAllGpioNumbers();
+    for (const auto gpioNumber : allPicoGpioNumbers)
+    {
+        ::gpio_set_function(static_cast<uint>(gpioNumber), GPIO_FUNC_SIO);
+        ::gpio_set_dir(static_cast<uint>(gpioNumber), GPIO_IN);
+    }
 }
 
 IGpioSettingsControllerPtr GpioSettingsController::create()
@@ -118,12 +153,13 @@ IGpioSettingsControllerPtr GpioSettingsController::create()
 std::optional<definitions::EGpioDirection> GpioSettingsController::getGpioDirection(
     const core::TGpioNumber gpioNumber)
 {
-    const auto gpioFunction = getGpioFunction(gpioNumber);
-    if (gpioFunction != definitions::EGpioFunction::SIO)
+    const auto optionalGpioFunction = getGpioFunction(gpioNumber);
+    if (optionalGpioFunction == std::nullopt
+        || optionalGpioFunction.value() != definitions::EGpioFunction::SIO)
     {
         return std::nullopt;
     }
-    if (::gpio_get_dir(static_cast<uint>(gpioNumber)) == 1u)
+    if (::gpio_get_dir(static_cast<uint>(gpioNumber)) == GPIO_OUT)
     {
         return definitions::EGpioDirection::Output;
     }
@@ -134,18 +170,23 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDirection(
     const core::TGpioNumber gpioNumber,
     const definitions::EGpioDirection gpioDirection)
 {
-    const auto gpioFunction = getGpioFunction(gpioNumber);
-    if (gpioFunction != definitions::EGpioFunction::SIO)
+    if (not isGpioNumberCorrect(gpioNumber))
+    {
+        return core::definitions::EOperationResult::InvalidArgument;
+    }
+    const auto optionalGpioFunction = getGpioFunction(gpioNumber);
+    if (optionalGpioFunction == std::nullopt
+        || optionalGpioFunction.value() != definitions::EGpioFunction::SIO)
     {
         return core::definitions::EOperationResult::NotPossible;
     }
     if (gpioDirection == definitions::EGpioDirection::Input)
     {
-        ::gpio_set_dir(static_cast<uint>(gpioNumber), false);
+        ::gpio_set_dir(static_cast<uint>(gpioNumber), GPIO_IN);
     }
     else
     {
-        ::gpio_set_dir(static_cast<uint>(gpioNumber), true);
+        ::gpio_set_dir(static_cast<uint>(gpioNumber), GPIO_OUT);
         ::gpio_put(static_cast<uint>(gpioNumber), false);
         ::gpio_set_drive_strength(static_cast<uint>(gpioNumber), GPIO_DRIVE_STRENGTH_2MA);
         ::gpio_set_slew_rate(static_cast<uint>(gpioNumber), GPIO_SLEW_RATE_FAST);
@@ -170,6 +211,10 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDriveStrength
     const core::TGpioNumber gpioNumber,
     const definitions::EGpioDriveStrength gpioDriveStrength)
 {
+    if (not isGpioNumberCorrect(gpioNumber))
+    {
+        return core::definitions::EOperationResult::InvalidArgument;
+    }
     const auto optionalGpioDirection = getGpioDirection(gpioNumber);
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
@@ -180,9 +225,13 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDriveStrength
     return core::definitions::EOperationResult::Success;
 }
 
-definitions::EGpioFunction GpioSettingsController::getGpioFunction(
+std::optional<definitions::EGpioFunction> GpioSettingsController::getGpioFunction(
     const core::TGpioNumber gpioNumber)
 {
+    if (not isGpioNumberCorrect(gpioNumber))
+    {
+        return std::nullopt;
+    }
     return toPicoSdkAlGpioFunction(::gpio_get_function(static_cast<uint>(gpioNumber)));
 }
 
@@ -190,14 +239,22 @@ core::definitions::EOperationResult GpioSettingsController::setGpioFunction(
     const core::TGpioNumber gpioNumber,
     const definitions::EGpioFunction gpioFunction)
 {
+    if (not isGpioNumberCorrect(gpioNumber))
+    {
+        return core::definitions::EOperationResult::InvalidArgument;
+    }
     ::gpio_set_function(static_cast<uint>(gpioNumber),
         toPicoSdkGpioFunction(gpioFunction));
     return core::definitions::EOperationResult::Success;
 }
 
-definitions::EGpioPullUp GpioSettingsController::getGpioPullUp(
+std::optional<definitions::EGpioPullUp> GpioSettingsController::getGpioPullUp(
     const core::TGpioNumber gpioNumber)
 {
+    if (not isGpioNumberCorrect(gpioNumber))
+    {
+        return std::nullopt;
+    }
     const auto isPulledDown = ::gpio_is_pulled_down(static_cast<uint8_t>(gpioNumber));
     const auto isPulledUp = ::gpio_is_pulled_up(static_cast<uint8_t>(gpioNumber));
     if (isPulledUp && isPulledDown)
@@ -215,6 +272,10 @@ core::definitions::EOperationResult GpioSettingsController::setGpioPullUp(
     const core::TGpioNumber gpioNumber,
     const definitions::EGpioPullUp gpioPullUp)
 {
+    if (not isGpioNumberCorrect(gpioNumber))
+    {
+        return core::definitions::EOperationResult::InvalidArgument;
+    }
     switch (gpioPullUp)
     {
         case definitions::EGpioPullUp::BusKeep:
@@ -239,6 +300,10 @@ core::definitions::EOperationResult GpioSettingsController::setGpioPullUp(
 std::optional<definitions::EGpioSlewRateLimiting> GpioSettingsController::getGpioSlewRateLimiting(
     const core::TGpioNumber gpioNumber)
 {
+    if (not isGpioNumberCorrect(gpioNumber))
+    {
+        return std::nullopt;
+    }
     const auto optionalGpioDirection = getGpioDirection(gpioNumber);
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
@@ -252,6 +317,10 @@ core::definitions::EOperationResult GpioSettingsController::setGpioSlewRateLimit
     const core::TGpioNumber gpioNumber,
     const definitions::EGpioSlewRateLimiting gpioSlewRateLimiting)
 {
+    if (not isGpioNumberCorrect(gpioNumber))
+    {
+        return core::definitions::EOperationResult::InvalidArgument;
+    }
     const auto optionalGpioDirection = getGpioDirection(gpioNumber);
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
