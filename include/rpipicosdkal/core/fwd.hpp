@@ -12,6 +12,8 @@ namespace rpipicosdkal
 namespace core
 {
 
+class Logger;
+
 }  // namespace core
 }  // namespace rpipicosdkal
 

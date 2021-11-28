@@ -17,11 +17,14 @@ add_library(${PROJECT_NAME} STATIC)
 target_sources(${PROJECT_NAME}
     PUBLIC
         ${LOCAL_HEADERS_DIR}/core/fwd.hpp
+        ${LOCAL_HEADERS_DIR}/core/Logger.hpp
         ${LOCAL_HEADERS_DIR}/core/Types.hpp
         ${LOCAL_HEADERS_DIR}/core/definitions/fwd.hpp
+        ${LOCAL_HEADERS_DIR}/core/definitions/ELogSeverity.hpp
         ${LOCAL_HEADERS_DIR}/core/definitions/EOperationResult.hpp
 
     PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/definitions/ELogSeverity.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EOperationResult.cpp
 )
 
