@@ -32,7 +32,10 @@ target_link_libraries(${UT_COMMON_LIBRARY}
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-field-initializers -Wnon-virtual-dtor -Wsign-compare -Woverloaded-virtual -Wunused-function")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og -fno-inline -ggdb3")
 
+add_subdirectory(context)
+add_subdirectory(core)
 add_subdirectory(gpio)
+add_subdirectory(system)
 
 if (UNIT_TESTS_GENERATE_CODE_COVERAGE)
     setup_target_for_coverage_lcov(

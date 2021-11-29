@@ -19,5 +19,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og -fno-inline -ggdb3")
 add_library(${PROJECT_NAME} STATIC)
 
 target_link_libraries(${PROJECT_NAME}
+    ${PROJECT_NAME}_core
     ${PROJECT_NAME}_gpio
 )

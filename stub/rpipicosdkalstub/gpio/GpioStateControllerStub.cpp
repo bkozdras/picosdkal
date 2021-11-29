@@ -6,59 +6,98 @@
 
 #include <rpipicosdkalstub/gpio/GpioStateControllerStub.hpp>
 
+#include <vector>
+
 namespace rpipicosdkal
 {
 namespace gpio
 {
 
-GpioStateControllerStub::GpioStateControllerStub()
-    : gpioToState_()
+namespace
 {
+
+std::vector<core::TGpioNumber> getAllGpioNumbers()
+{
+    std::vector<core::TGpioNumber> allPicoGpioNumbers;
+    for (auto gpioNumber = 0u; gpioNumber <= 22u; ++gpioNumber)
+    {
+        allPicoGpioNumbers.push_back(gpioNumber);
+    }
+    for (auto gpioNumber = 26u; gpioNumber <= 28u; ++gpioNumber)
+    {
+        allPicoGpioNumbers.push_back(gpioNumber);
+    }
+    return allPicoGpioNumbers;
 }
 
-std::optional<definitions::EGpioState> GpioStateControllerStub::getInputLevel(const core::TGpioNumber gpio)
+}  // namespace
+
+GpioStateControllerStub::GpioStateControllerStub(
+        GpioSettingsControllerStub& gpioSettingsControllerStub)
+    : gpioSettingsControllerStub_(gpioSettingsControllerStub)
+    , gpioToState_()
 {
-    const auto iter = gpioToState_.find(gpio);
-    if (iter == std::end(gpioToState_))
+    const auto allGpios = getAllGpioNumbers();
+    for (const auto gpio : allGpios)
+    {
+        gpioToState_.emplace(std::make_pair(gpio, definitions::EGpioState::Low));
+    }
+}
+
+GpioStateControllerStubPtr GpioStateControllerStub::create(
+    GpioSettingsControllerStub& gpioSettingsControllerStub)
+{
+    return GpioStateControllerStubPtr(new GpioStateControllerStub(gpioSettingsControllerStub));
+}
+
+std::optional<definitions::EGpioState> GpioStateControllerStub::getInputLevel(
+    const core::TGpioNumber gpioNumber)
+{
+    const auto optionalGpioDirection = gpioSettingsControllerStub_.getGpioDirection(gpioNumber);
+    if (optionalGpioDirection == std::nullopt
+        || optionalGpioDirection.value() != definitions::EGpioDirection::Input)
     {
         return std::nullopt;
     }
-    return iter->second;
+    return gpioToState_.at(gpioNumber);
 }
 
-std::optional<definitions::EGpioState> GpioStateControllerStub::getOutputLevel(const core::TGpioNumber gpio)
+std::optional<definitions::EGpioState> GpioStateControllerStub::getOutputLevel(
+    const core::TGpioNumber gpioNumber)
 {
-    const auto iter = gpioToState_.find(gpio);
-    if (iter == std::end(gpioToState_))
+    const auto optionalGpioDirection = gpioSettingsControllerStub_.getGpioDirection(gpioNumber);
+    if (optionalGpioDirection == std::nullopt
+        || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
     {
         return std::nullopt;
     }
-    return iter->second;
+    return gpioToState_.at(gpioNumber);
 }
 
-core::definitions::EOperationResult GpioStateControllerStub::setOutputLevel(const core::TGpioNumber gpio,
+core::definitions::EOperationResult GpioStateControllerStub::setOutputLevel(
+    const core::TGpioNumber gpioNumber,
     const definitions::EGpioState gpioState)
 {
-    auto iter = gpioToState_.find(gpio);
-    if (iter == std::end(gpioToState_))
+    const auto optionalGpioDirection = gpioSettingsControllerStub_.getGpioDirection(gpioNumber);
+    if (optionalGpioDirection == std::nullopt
+        || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
     {
-        iter = gpioToState_.emplace(std::pair<uint8_t, definitions::EGpioState>(
-            gpio, definitions::EGpioState::Low)).first;
+        return core::definitions::EOperationResult::NotPossible;
     }
-    iter->second = gpioState;
+    gpioToState_[gpioNumber] = gpioState;
     return core::definitions::EOperationResult::Success;
 }
 
-void GpioStateControllerStub::simulateGpioStateChange(const core::TGpioNumber gpio,
+void GpioStateControllerStub::simulateGpioStateChange(const core::TGpioNumber gpioNumber,
     const definitions::EGpioState gpioState)
 {
-    auto iter = gpioToState_.find(gpio);
-    if (iter == std::end(gpioToState_))
+    const auto optionalGpioDirection = gpioSettingsControllerStub_.getGpioDirection(gpioNumber);
+    if (optionalGpioDirection == std::nullopt
+        || optionalGpioDirection.value() != definitions::EGpioDirection::Input)
     {
-        iter = gpioToState_.emplace(std::pair<core::TGpioNumber, definitions::EGpioState>(
-            gpio, definitions::EGpioState::Low)).first;
+        return;
     }
-    iter->second = gpioState;
+    gpioToState_[gpioNumber] = gpioState;
 }
 
 }  // namespace gpio

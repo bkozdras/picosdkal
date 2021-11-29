@@ -15,6 +15,8 @@ target_sources(${UT_BINARY_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioInterruptControllerTests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioSettingsControllerTests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioStateControllerTests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/bootstrapper/BootstrapperTests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/bootstrapper/ConfigurableBootstrapperTests.cpp
 )
 
 target_link_libraries(${UT_BINARY_NAME}

@@ -16,6 +16,8 @@
 #include <rpipicosdkal/gpio/IGpioStateController.hpp>
 #include <rpipicosdkal/gpio/definitions/EGpioState.hpp>
 
+#include <rpipicosdkalstub/gpio/GpioSettingsControllerStub.hpp>
+
 namespace rpipicosdkal
 {
 namespace gpio
@@ -27,24 +29,25 @@ using GpioStateControllerStubPtr = std::unique_ptr<GpioStateControllerStub>;
 class GpioStateControllerStub : public IGpioStateController
 {
 public:
-    static GpioStateControllerStubPtr create();
+    static GpioStateControllerStubPtr create(GpioSettingsControllerStub& gpioSettingsControllerStub);
     ~GpioStateControllerStub() = default;
 
     std::optional<definitions::EGpioState> getInputLevel(
-        const core::TGpioNumber gpio) override;
+        const core::TGpioNumber gpioNumber) override;
     std::optional<definitions::EGpioState> getOutputLevel(
-        const core::TGpioNumber gpio) override;
+        const core::TGpioNumber gpioNumber) override;
     core::definitions::EOperationResult setOutputLevel(
-        const core::TGpioNumber gpio,
+        const core::TGpioNumber gpioNumber,
         const definitions::EGpioState gpioState) override;
 
     void simulateGpioStateChange(
-        const core::TGpioNumber gpio,
+        const core::TGpioNumber gpioNumber,
         const definitions::EGpioState gpioState);
 
 private:
-    GpioStateControllerStub();
+    explicit GpioStateControllerStub(GpioSettingsControllerStub& gpioSettingsControllerStub);
 
+    GpioSettingsControllerStub& gpioSettingsControllerStub_;
     std::map<core::TGpioNumber /*GPIO*/, definitions::EGpioState> gpioToState_;
 };
 
