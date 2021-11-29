@@ -6,9 +6,10 @@
 
 #include <rpipicosdkal/gpio/GpioStateController.hpp>
 
+#include <sstream>
+
 #include <hardware/gpio.h>
 
-#include <rpipicosdkal/core/InternalSdkLogger.hpp>
 #include <rpipicosdkal/gpio/IGpioSettingsController.hpp>
 #include <rpipicosdkal/gpio/definitions/EGpioDirection.hpp>
 
@@ -17,10 +18,9 @@ namespace rpipicosdkal
 namespace gpio
 {
 
-const std::string GpioStateController::loggerPrefix_ = "GPIO/StateController";
-
 GpioStateController::GpioStateController(IGpioSettingsController& gpioSettingsController)
-    : gpioSettingsController_(gpioSettingsController)
+    : detail::PrinterBase("GPIO/StateController")
+    , gpioSettingsController_(gpioSettingsController)
 {
 }
 
@@ -36,13 +36,7 @@ std::optional<definitions::EGpioState> GpioStateController::getInputLevel(
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Input)
     {
-        SDK_LOG_WARNING(loggerPrefix_)
-            << "(getInputLevel) Not valid GPIO "
-            << std::to_string(gpioNumber)
-            << " direction: "
-            << (optionalGpioDirection == std::nullopt
-                ? std::string("N/A")
-                : definitions::toString(optionalGpioDirection.value()));
+        detail::PrinterBase::printNotValidGpioDirection(__FUNCTION__, gpioNumber, optionalGpioDirection);
         return std::nullopt;
     }
     const auto isHighLevel = ::gpio_get(gpioNumber);
@@ -60,13 +54,7 @@ std::optional<definitions::EGpioState> GpioStateController::getOutputLevel(
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
     {
-        SDK_LOG_WARNING(loggerPrefix_)
-            << "(getOutputLevel) Not valid GPIO "
-            << std::to_string(gpioNumber)
-            << " direction: "
-            << (optionalGpioDirection == std::nullopt
-                ? std::string("N/A")
-                : definitions::toString(optionalGpioDirection.value()));
+        detail::PrinterBase::printNotValidGpioDirection(__FUNCTION__, gpioNumber, optionalGpioDirection);
         return std::nullopt;
     }
     const auto isHighLevel = ::gpio_get(gpioNumber);
@@ -85,14 +73,10 @@ core::definitions::EOperationResult GpioStateController::setOutputLevel(
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
     {
-        SDK_LOG_WARNING(loggerPrefix_)
-            << "(setOutputLevel) Not valid GPIO "
-            << std::to_string(gpioNumber)
-            << " direction: "
-            << (optionalGpioDirection == std::nullopt
-                ? std::string("N/A")
-                : definitions::toString(optionalGpioDirection.value()));
-        return core::definitions::EOperationResult::NotPossible;
+        return detail::PrinterBase::printNotValidGpioDirectionAndReturnOperationResult(__FUNCTION__,
+            gpioNumber,
+            optionalGpioDirection,
+            core::definitions::EOperationResult::NotPossible);
     }
     if (gpioState == definitions::EGpioState::Low)
     {
@@ -102,10 +86,13 @@ core::definitions::EOperationResult GpioStateController::setOutputLevel(
     {
         ::gpio_put(gpioNumber, true);
     }
-    SDK_LOG_DEBUG(loggerPrefix_)
+    std::ostringstream message;
+    message
         << "Set GPIO " << std::to_string(gpioNumber)
         << " state to: " << definitions::toString(gpioState);
-    return core::definitions::EOperationResult::Success;
+    return detail::PrinterBase::printMessageAndReturnOperationResult(__FUNCTION__,
+        core::definitions::EOperationResult::Success,
+        message.str());
 }
 
 }  // namespace gpio

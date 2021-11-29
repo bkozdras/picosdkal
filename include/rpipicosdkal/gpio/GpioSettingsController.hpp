@@ -9,7 +9,6 @@
 
 #include <memory>
 #include <optional>
-#include <string>
 
 #include <rpipicosdkal/core/Types.hpp>
 #include <rpipicosdkal/core/definitions/EOperationResult.hpp>
@@ -20,13 +19,14 @@
 #include <rpipicosdkal/gpio/definitions/EGpioFunction.hpp>
 #include <rpipicosdkal/gpio/definitions/EGpioPullUp.hpp>
 #include <rpipicosdkal/gpio/definitions/EGpioSlewRateLimiting.hpp>
+#include <rpipicosdkal/gpio/detail/PrinterBase.hpp>
 
 namespace rpipicosdkal
 {
 namespace gpio
 {
 
-class GpioSettingsController final : public IGpioSettingsController
+class GpioSettingsController final : public IGpioSettingsController, public detail::PrinterBase
 {
 public:
     static IGpioSettingsControllerPtr create();
@@ -64,8 +64,6 @@ public:
 
 private:
     GpioSettingsController();
-
-    static const std::string loggerPrefix_;
 };
 
 }  // namespace gpio

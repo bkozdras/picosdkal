@@ -32,6 +32,9 @@ target_sources(${PROJECT_NAME}
         ${LOCAL_HEADERS_DIR}/gpio/definitions/EGpioState.hpp
 
     PRIVATE
+        ${LOCAL_HEADERS_DIR}/gpio/detail/PrinterBase.hpp
+
+    PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioInterruptController.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioSettingsController.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioStateController.cpp
@@ -41,6 +44,7 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioPullUp.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioSlewRateLimiting.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EGpioState.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/PrinterBase.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

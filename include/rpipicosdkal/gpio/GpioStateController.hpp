@@ -7,21 +7,20 @@
 #ifndef RPIPICOSDKAL_GPIO_GPIOSTATECONTROLLER_HPP_
 #define RPIPICOSDKAL_GPIO_GPIOSTATECONTROLLER_HPP_
 
-#include <cstdint>
 #include <memory>
-#include <string>
 
 #include <rpipicosdkal/core/Types.hpp>
 #include <rpipicosdkal/core/definitions/EOperationResult.hpp>
 #include <rpipicosdkal/gpio/fwd.hpp>
 #include <rpipicosdkal/gpio/IGpioStateController.hpp>
+#include <rpipicosdkal/gpio/detail/PrinterBase.hpp>
 
 namespace rpipicosdkal
 {
 namespace gpio
 {
 
-class GpioStateController final : public IGpioStateController
+class GpioStateController final : public IGpioStateController, public detail::PrinterBase
 {
 public:
     static IGpioStateControllerPtr create(IGpioSettingsController& gpioSettingsController);
@@ -38,7 +37,6 @@ public:
 private:
     explicit GpioStateController(IGpioSettingsController& gpioSettingsController);
 
-    static const std::string loggerPrefix_;
     IGpioSettingsController& gpioSettingsController_;
 };
 
