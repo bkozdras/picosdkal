@@ -15,24 +15,41 @@ namespace core
 namespace logger
 {
 
-detail::LoggerFlusher debug(const std::string& prefix)
+namespace
 {
-    return detail::LoggerFlusher(definitions::ELogSeverity::Debug, prefix);
+
+static bool isLoggingEnabled = true;
+
+}  // namespace
+
+detail::StdOutLoggerFlusher debug(const std::string& prefix)
+{
+    return detail::StdOutLoggerFlusher(definitions::ELogSeverity::Debug, prefix, isLoggingEnabled);
 }
 
-detail::LoggerFlusher info(const std::string& prefix)
+detail::StdOutLoggerFlusher info(const std::string& prefix)
 {
-    return detail::LoggerFlusher(definitions::ELogSeverity::Info, prefix);
+    return detail::StdOutLoggerFlusher(definitions::ELogSeverity::Info, prefix, isLoggingEnabled);
 }
 
-detail::LoggerFlusher warning(const std::string& prefix)
+detail::StdOutLoggerFlusher warning(const std::string& prefix)
 {
-    return detail::LoggerFlusher(definitions::ELogSeverity::Warning, prefix);
+    return detail::StdOutLoggerFlusher(definitions::ELogSeverity::Warning, prefix, isLoggingEnabled);
 }
 
-detail::LoggerFlusher error(const std::string& prefix)
+detail::StdOutLoggerFlusher error(const std::string& prefix)
 {
-    return detail::LoggerFlusher(definitions::ELogSeverity::Error, prefix);
+    return detail::StdOutLoggerFlusher(definitions::ELogSeverity::Error, prefix, isLoggingEnabled);
+}
+
+void disableLogging()
+{
+    isLoggingEnabled = false;
+}
+
+void enableLogging()
+{
+    isLoggingEnabled = true;
 }
 
 }  // namespace logger

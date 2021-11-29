@@ -17,6 +17,7 @@ add_library(${PROJECT_NAME} STATIC)
 target_sources(${PROJECT_NAME}
     PUBLIC
         ${LOCAL_HEADERS_DIR}/core/fwd.hpp
+        ${LOCAL_HEADERS_DIR}/core/InternalSdkLogger.hpp
         ${LOCAL_HEADERS_DIR}/core/Logger.hpp
         ${LOCAL_HEADERS_DIR}/core/Types.hpp
         ${LOCAL_HEADERS_DIR}/core/definitions/fwd.hpp
@@ -24,13 +25,16 @@ target_sources(${PROJECT_NAME}
         ${LOCAL_HEADERS_DIR}/core/definitions/EOperationResult.hpp
 
     PRIVATE
-        ${LOCAL_HEADERS_DIR}/core/detail/LoggerFlusher.hpp
+        ${LOCAL_HEADERS_DIR}/core/detail/NullOutLoggerFlusher.hpp
+        ${LOCAL_HEADERS_DIR}/core/detail/StdOutLoggerFlusher.hpp
 
     PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/InternalSdkLogger.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/ELogSeverity.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/definitions/EOperationResult.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/detail/LoggerFlusher.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/NullOutLoggerFlusher.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/detail/StdOutLoggerFlusher.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

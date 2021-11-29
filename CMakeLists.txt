@@ -86,6 +86,9 @@ if (BUILD_LIB_FOR_HOST)
 endif (BUILD_LIB_FOR_HOST)
 
 if (BUILD_LIB_FOR_TARGET OR BUILD_LIB_FOR_HOST)
+    if (ENABLE_SDK_LOGGING)
+        add_definitions(-DUSE_SDK_LOGGING)
+    endif (ENABLE_SDK_LOGGING)
     add_subdirectory(src)
 endif (BUILD_LIB_FOR_TARGET OR BUILD_LIB_FOR_HOST)
 

@@ -10,7 +10,7 @@
 
 #include <hardware/gpio.h>
 
-#include <rpipicosdkal/core/Logger.hpp>
+#include <rpipicosdkal/core/InternalSdkLogger.hpp>
 
 namespace rpipicosdkal
 {
@@ -161,7 +161,7 @@ std::optional<definitions::EGpioDirection> GpioSettingsController::getGpioDirect
     if (optionalGpioFunction == std::nullopt
         || optionalGpioFunction.value() != definitions::EGpioFunction::SIO)
     {
-        LOG_WARNING(loggerPrefix_)
+        SDK_LOG_WARNING(loggerPrefix_)
             << "(getGpioDirection) Not valid GPIO "
             << std::to_string(gpioNumber)
             << " function: "
@@ -183,7 +183,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDirection(
 {
     if (not isGpioNumberCorrect(gpioNumber))
     {
-        LOG_ERROR(loggerPrefix_)
+        SDK_LOG_ERROR(loggerPrefix_)
             << "(setGpioDirection) Not valid GPIO number passed: "
             << std::to_string(gpioNumber);
         return core::definitions::EOperationResult::InvalidArgument;
@@ -192,7 +192,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDirection(
     if (optionalGpioFunction == std::nullopt
         || optionalGpioFunction.value() != definitions::EGpioFunction::SIO)
     {
-        LOG_WARNING(loggerPrefix_)
+        SDK_LOG_WARNING(loggerPrefix_)
             << "(setGpioDirection) Not valid GPIO "
             << std::to_string(gpioNumber)
             << " function: "
@@ -212,7 +212,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDirection(
         ::gpio_set_drive_strength(static_cast<uint>(gpioNumber), GPIO_DRIVE_STRENGTH_2MA);
         ::gpio_set_slew_rate(static_cast<uint>(gpioNumber), GPIO_SLEW_RATE_FAST);
     }
-    LOG_DEBUG(loggerPrefix_)
+    SDK_LOG_DEBUG(loggerPrefix_)
         << "Set GPIO " << std::to_string(gpioNumber)
         << " direction to: " << definitions::toString(gpioDirection);
     return core::definitions::EOperationResult::Success;
@@ -225,7 +225,7 @@ std::optional<definitions::EGpioDriveStrength> GpioSettingsController::getGpioDr
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
     {
-        LOG_WARNING(loggerPrefix_)
+        SDK_LOG_WARNING(loggerPrefix_)
             << "(getGpioDriveStrength) Not valid GPIO "
             << std::to_string(gpioNumber)
             << " direction: "
@@ -244,7 +244,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDriveStrength
 {
     if (not isGpioNumberCorrect(gpioNumber))
     {
-        LOG_ERROR(loggerPrefix_)
+        SDK_LOG_ERROR(loggerPrefix_)
             << "(setGpioDriveStrength) Not valid GPIO number passed: "
             << std::to_string(gpioNumber);
         return core::definitions::EOperationResult::InvalidArgument;
@@ -253,7 +253,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDriveStrength
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
     {
-        LOG_WARNING(loggerPrefix_)
+        SDK_LOG_WARNING(loggerPrefix_)
             << "(setGpioDriveStrength) Not valid GPIO "
             << std::to_string(gpioNumber)
             << " direction: "
@@ -263,7 +263,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioDriveStrength
         return core::definitions::EOperationResult::NotPossible;
     }
     ::gpio_set_drive_strength(static_cast<uint>(gpioNumber), toPicoSdkGpioDriveStrength(gpioDriveStrength));
-    LOG_DEBUG(loggerPrefix_)
+    SDK_LOG_DEBUG(loggerPrefix_)
         << "Set GPIO " << std::to_string(gpioNumber)
         << " drive strength to: " << definitions::toString(gpioDriveStrength);
     return core::definitions::EOperationResult::Success;
@@ -274,7 +274,7 @@ std::optional<definitions::EGpioFunction> GpioSettingsController::getGpioFunctio
 {
     if (not isGpioNumberCorrect(gpioNumber))
     {
-        LOG_ERROR(loggerPrefix_)
+        SDK_LOG_ERROR(loggerPrefix_)
             << "(getGpioFunction) Not valid GPIO number passed: "
             << std::to_string(gpioNumber);
         return std::nullopt;
@@ -288,14 +288,14 @@ core::definitions::EOperationResult GpioSettingsController::setGpioFunction(
 {
     if (not isGpioNumberCorrect(gpioNumber))
     {
-        LOG_ERROR(loggerPrefix_)
+        SDK_LOG_ERROR(loggerPrefix_)
             << "(setGpioFunction) Not valid GPIO number passed: "
             << std::to_string(gpioNumber);
         return core::definitions::EOperationResult::InvalidArgument;
     }
     ::gpio_set_function(static_cast<uint>(gpioNumber),
         toPicoSdkGpioFunction(gpioFunction));
-    LOG_DEBUG(loggerPrefix_)
+    SDK_LOG_DEBUG(loggerPrefix_)
         << "Set GPIO " << std::to_string(gpioNumber)
         << " function to: " << definitions::toString(gpioFunction);
     return core::definitions::EOperationResult::Success;
@@ -306,7 +306,7 @@ std::optional<definitions::EGpioPullUp> GpioSettingsController::getGpioPullUp(
 {
     if (not isGpioNumberCorrect(gpioNumber))
     {
-        LOG_ERROR(loggerPrefix_)
+        SDK_LOG_ERROR(loggerPrefix_)
             << "(getGpioPullUp) Not valid GPIO number passed: "
             << std::to_string(gpioNumber);
         return std::nullopt;
@@ -334,7 +334,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioPullUp(
 {
     if (not isGpioNumberCorrect(gpioNumber))
     {
-        LOG_ERROR(loggerPrefix_)
+        SDK_LOG_ERROR(loggerPrefix_)
             << "(setGpioPullUp) Not valid GPIO number passed: "
             << std::to_string(gpioNumber);
         return core::definitions::EOperationResult::InvalidArgument;
@@ -362,7 +362,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioPullUp(
             break;
         }
     }
-    LOG_DEBUG(loggerPrefix_)
+    SDK_LOG_DEBUG(loggerPrefix_)
         << "Set GPIO " << std::to_string(gpioNumber)
         << " pull-up to: " << definitions::toString(gpioPullUp);
     return core::definitions::EOperationResult::Success;
@@ -373,7 +373,7 @@ std::optional<definitions::EGpioSlewRateLimiting> GpioSettingsController::getGpi
 {
     if (not isGpioNumberCorrect(gpioNumber))
     {
-        LOG_ERROR(loggerPrefix_)
+        SDK_LOG_ERROR(loggerPrefix_)
             << "(getGpioSlewRateLimiting) Not valid GPIO number passed: "
             << std::to_string(gpioNumber);
         return std::nullopt;
@@ -382,7 +382,7 @@ std::optional<definitions::EGpioSlewRateLimiting> GpioSettingsController::getGpi
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
     {
-        LOG_WARNING(loggerPrefix_)
+        SDK_LOG_WARNING(loggerPrefix_)
             << "(getGpioSlewRateLimiting) Not valid GPIO "
             << std::to_string(gpioNumber)
             << " direction: "
@@ -400,7 +400,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioSlewRateLimit
 {
     if (not isGpioNumberCorrect(gpioNumber))
     {
-        LOG_ERROR(loggerPrefix_)
+        SDK_LOG_ERROR(loggerPrefix_)
             << "(setGpioSlewRateLimiting) Not valid GPIO number passed: "
             << std::to_string(gpioNumber);
         return core::definitions::EOperationResult::InvalidArgument;
@@ -409,7 +409,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioSlewRateLimit
     if (optionalGpioDirection == std::nullopt
         || optionalGpioDirection.value() != definitions::EGpioDirection::Output)
     {
-        LOG_WARNING(loggerPrefix_)
+        SDK_LOG_WARNING(loggerPrefix_)
             << "(getGpioSlewRateLimiting) Not valid GPIO "
             << std::to_string(gpioNumber)
             << " direction: "
@@ -419,7 +419,7 @@ core::definitions::EOperationResult GpioSettingsController::setGpioSlewRateLimit
         return core::definitions::EOperationResult::NotPossible;
     }
     ::gpio_set_slew_rate(static_cast<uint>(gpioNumber), toPicoSdkGpioSlewRate(gpioSlewRateLimiting));
-    LOG_DEBUG(loggerPrefix_)
+    SDK_LOG_DEBUG(loggerPrefix_)
         << "Set GPIO " << std::to_string(gpioNumber)
         << " slew rate: " << definitions::toString(gpioSlewRateLimiting);
     return core::definitions::EOperationResult::Success;

@@ -9,15 +9,12 @@
 
 #include <string>
 
-#include <rpipicosdkal/core/detail/LoggerFlusher.hpp>
+#include <rpipicosdkal/core/detail/StdOutLoggerFlusher.hpp>
 
-#ifdef LOGGER_DISABLED
-#else
-    #define LOG_DEBUG(prefix) rpipicosdkal::core::logger::debug(prefix)
-    #define LOG_INFO(prefix) rpipicosdkal::core::logger::info(prefix)
-    #define LOG_WARNING(prefix) rpipicosdkal::core::logger::warning(prefix)
-    #define LOG_ERROR(prefix) rpipicosdkal::core::logger::error(prefix)
-#endif
+#define LOG_DEBUG(prefix) rpipicosdkal::core::logger::debug(prefix)
+#define LOG_INFO(prefix) rpipicosdkal::core::logger::info(prefix)
+#define LOG_WARNING(prefix) rpipicosdkal::core::logger::warning(prefix)
+#define LOG_ERROR(prefix) rpipicosdkal::core::logger::error(prefix)
 
 namespace rpipicosdkal
 {
@@ -26,10 +23,13 @@ namespace core
 namespace logger
 {
 
-detail::LoggerFlusher debug(const std::string& prefix);
-detail::LoggerFlusher info(const std::string& prefix);
-detail::LoggerFlusher warning(const std::string& prefix);
-detail::LoggerFlusher error(const std::string& prefix);
+detail::StdOutLoggerFlusher debug(const std::string& prefix);
+detail::StdOutLoggerFlusher info(const std::string& prefix);
+detail::StdOutLoggerFlusher warning(const std::string& prefix);
+detail::StdOutLoggerFlusher error(const std::string& prefix);
+
+void disableLogging();
+void enableLogging();  // enabled by default
 
 }  // namespace logger
 }  // namespace core

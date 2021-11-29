@@ -48,6 +48,7 @@ cmake \
     -DCMAKE_C_COMPILER=gcc-$GCC_VERSION \
     -DCMAKE_CXX_COMPILER=g++-$GCC_VERSION \
     -DRPIPICOSDKAL_UNIT_TESTS_GENERATE_CODE_COVERAGE=ON \
+    -DRPIPICOSDKAL_ENABLE_LOGGING=ON \
     -DRPIPICOSDKAL_BUILD_UNIT_TESTS=ON ../.. \
     && make -j$(nproc --all) \
     && ctest -j$(nproc --all) --output-on-failure --timeout 15

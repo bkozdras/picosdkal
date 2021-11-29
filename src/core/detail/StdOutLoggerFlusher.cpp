@@ -4,7 +4,7 @@
 /* Licence: MIT                                                                   */
 /**********************************************************************************/
 
-#include <rpipicosdkal/core/detail/LoggerFlusher.hpp>
+#include <rpipicosdkal/core/detail/StdOutLoggerFlusher.hpp>
 
 #include <iostream>
 
@@ -15,9 +15,11 @@ namespace core
 namespace detail
 {
 
-LoggerFlusher::LoggerFlusher(const definitions::ELogSeverity logSeverity,
-        const std::string& prefix)
-    : outStr_()
+StdOutLoggerFlusher::StdOutLoggerFlusher(const definitions::ELogSeverity logSeverity,
+        const std::string& prefix,
+        const bool isOutputEnabled)
+    : isOutputEnabled_(isOutputEnabled)
+    , outStr_()
 {
     outStr_ << "["
         << definitions::toString(logSeverity)
@@ -26,9 +28,12 @@ LoggerFlusher::LoggerFlusher(const definitions::ELogSeverity logSeverity,
         << "]: ";
 }
 
-LoggerFlusher::~LoggerFlusher()
+StdOutLoggerFlusher::~StdOutLoggerFlusher()
 {
-    std::cout << outStr_.str() << std::endl;
+    if (isOutputEnabled_)
+    {
+        std::cout << outStr_.str() << std::endl;
+    }
 }
 
 }  // namespace detail
