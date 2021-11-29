@@ -16,27 +16,28 @@ GpioStateControllerStub::GpioStateControllerStub()
 {
 }
 
-definitions::EGpioState GpioStateControllerStub::getInputLevel(const uint8_t gpio)
+std::optional<definitions::EGpioState> GpioStateControllerStub::getInputLevel(const core::TGpioNumber gpio)
 {
     const auto iter = gpioToState_.find(gpio);
     if (iter == std::end(gpioToState_))
     {
-        return definitions::EGpioState::Low;
+        return std::nullopt;
     }
     return iter->second;
 }
 
-definitions::EGpioState GpioStateControllerStub::getOutputLevel(const uint8_t gpio)
+std::optional<definitions::EGpioState> GpioStateControllerStub::getOutputLevel(const core::TGpioNumber gpio)
 {
     const auto iter = gpioToState_.find(gpio);
     if (iter == std::end(gpioToState_))
     {
-        return definitions::EGpioState::Low;
+        return std::nullopt;
     }
     return iter->second;
 }
 
-bool GpioStateControllerStub::setOutputLevel(const uint8_t gpio, const definitions::EGpioState gpioState)
+core::definitions::EOperationResult GpioStateControllerStub::setOutputLevel(const core::TGpioNumber gpio,
+    const definitions::EGpioState gpioState)
 {
     auto iter = gpioToState_.find(gpio);
     if (iter == std::end(gpioToState_))
@@ -45,15 +46,16 @@ bool GpioStateControllerStub::setOutputLevel(const uint8_t gpio, const definitio
             gpio, definitions::EGpioState::Low)).first;
     }
     iter->second = gpioState;
-    return true;
+    return core::definitions::EOperationResult::Success;
 }
 
-void GpioStateControllerStub::simulateGpioStateChange(const uint8_t gpio, const definitions::EGpioState gpioState)
+void GpioStateControllerStub::simulateGpioStateChange(const core::TGpioNumber gpio,
+    const definitions::EGpioState gpioState)
 {
     auto iter = gpioToState_.find(gpio);
     if (iter == std::end(gpioToState_))
     {
-        iter = gpioToState_.emplace(std::pair<uint8_t, definitions::EGpioState>(
+        iter = gpioToState_.emplace(std::pair<core::TGpioNumber, definitions::EGpioState>(
             gpio, definitions::EGpioState::Low)).first;
     }
     iter->second = gpioState;

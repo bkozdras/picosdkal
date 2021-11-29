@@ -18,7 +18,7 @@ namespace logger
 namespace
 {
 
-static bool isLoggingEnabled = true;
+static bool isLoggingEnabled = false;
 
 }  // namespace
 

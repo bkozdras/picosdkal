@@ -9,7 +9,10 @@
 
 #include <cstdint>
 #include <memory>
+#include <string>
 
+#include <rpipicosdkal/core/Types.hpp>
+#include <rpipicosdkal/core/definitions/EOperationResult.hpp>
 #include <rpipicosdkal/gpio/fwd.hpp>
 #include <rpipicosdkal/gpio/IGpioStateController.hpp>
 
@@ -21,15 +24,22 @@ namespace gpio
 class GpioStateController final : public IGpioStateController
 {
 public:
-    static IGpioStateControllerPtr create();
+    static IGpioStateControllerPtr create(IGpioSettingsController& gpioSettingsController);
     ~GpioStateController() = default;
 
-    definitions::EGpioState getInputLevel(const uint8_t gpio) override;
-    definitions::EGpioState getOutputLevel(const uint8_t gpio) override;
-    bool setOutputLevel(const uint8_t gpio, const definitions::EGpioState gpioState) override;
+    std::optional<definitions::EGpioState> getInputLevel(
+        const core::TGpioNumber gpioNumber) override;
+    std::optional<definitions::EGpioState> getOutputLevel(
+        const core::TGpioNumber gpioNumber) override;
+    core::definitions::EOperationResult setOutputLevel(
+        const core::TGpioNumber gpioNumber,
+        const definitions::EGpioState gpioState) override;
 
 private:
-    GpioStateController();
+    explicit GpioStateController(IGpioSettingsController& gpioSettingsController);
+
+    static const std::string loggerPrefix_;
+    IGpioSettingsController& gpioSettingsController_;
 };
 
 }  // namespace gpio

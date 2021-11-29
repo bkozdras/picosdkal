@@ -9,7 +9,10 @@
 
 #include <map>
 #include <memory>
+#include <optional>
 
+#include <rpipicosdkal/core/Types.hpp>
+#include <rpipicosdkal/core/definitions/EOperationResult.hpp>
 #include <rpipicosdkal/gpio/IGpioStateController.hpp>
 #include <rpipicosdkal/gpio/definitions/EGpioState.hpp>
 
@@ -27,16 +30,22 @@ public:
     static GpioStateControllerStubPtr create();
     ~GpioStateControllerStub() = default;
 
-    definitions::EGpioState getInputLevel(const uint8_t gpio) override;
-    definitions::EGpioState getOutputLevel(const uint8_t gpio) override;
-    bool setOutputLevel(const uint8_t gpio, const definitions::EGpioState gpioState) override;
+    std::optional<definitions::EGpioState> getInputLevel(
+        const core::TGpioNumber gpio) override;
+    std::optional<definitions::EGpioState> getOutputLevel(
+        const core::TGpioNumber gpio) override;
+    core::definitions::EOperationResult setOutputLevel(
+        const core::TGpioNumber gpio,
+        const definitions::EGpioState gpioState) override;
 
-    void simulateGpioStateChange(const uint8_t gpio, const definitions::EGpioState gpioState);
+    void simulateGpioStateChange(
+        const core::TGpioNumber gpio,
+        const definitions::EGpioState gpioState);
 
 private:
     GpioStateControllerStub();
 
-    std::map<uint8_t /*GPIO*/, definitions::EGpioState> gpioToState_;
+    std::map<core::TGpioNumber /*GPIO*/, definitions::EGpioState> gpioToState_;
 };
 
 }  // namespace gpio

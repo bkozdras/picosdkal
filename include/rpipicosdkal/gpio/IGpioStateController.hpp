@@ -7,9 +7,11 @@
 #ifndef RPIPICOSDKAL_GPIO_IGPIOSTATECONTROLLER_HPP_
 #define RPIPICOSDKAL_GPIO_IGPIOSTATECONTROLLER_HPP_
 
-#include <cstdint>
 #include <memory>
+#include <optional>
 
+#include <rpipicosdkal/core/Types.hpp>
+#include <rpipicosdkal/core/definitions/EOperationResult.hpp>
 #include <rpipicosdkal/gpio/definitions/EGpioState.hpp>
 
 namespace rpipicosdkal
@@ -22,9 +24,13 @@ class IGpioStateController
 public:
     virtual ~IGpioStateController() = default;
 
-    virtual definitions::EGpioState getInputLevel(const uint8_t gpio) = 0;
-    virtual definitions::EGpioState getOutputLevel(const uint8_t gpio) = 0;
-    virtual bool setOutputLevel(const uint8_t gpio, const definitions::EGpioState gpioState) = 0;
+    virtual std::optional<definitions::EGpioState> getInputLevel(
+        const core::TGpioNumber gpioNumber) = 0;
+    virtual std::optional<definitions::EGpioState> getOutputLevel(
+        const core::TGpioNumber gpioNumber) = 0;
+    virtual core::definitions::EOperationResult setOutputLevel(
+        const core::TGpioNumber gpioNumber,
+        const definitions::EGpioState gpioState) = 0;
 };
 
 }  // namespace gpio

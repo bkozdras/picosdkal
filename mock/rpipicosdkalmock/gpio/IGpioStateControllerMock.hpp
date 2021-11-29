@@ -8,9 +8,12 @@
 #define RPIPICOSDKALMOCK_GPIO_IGPIOSTATECONTROLLERMOCK_HPP_
 
 #include <memory>
+#include <optional>
 
 #include <gmock/gmock.h>
 
+#include <rpipicosdkal/core/Types.hpp>
+#include <rpipicosdkal/core/definitions/EOperationResult.hpp>
 #include <rpipicosdkal/gpio/IGpioStateController.hpp>
 #include <rpipicosdkal/gpio/definitions/EGpioState.hpp>
 
@@ -38,9 +41,9 @@ public:
     static IGpioStateControllerNiceMockPtr createNice();
     static IGpioStateControllerStrictMockPtr createStrict();
 
-    MOCK_METHOD1(getInputLevel, definitions::EGpioState(const uint8_t));
-    MOCK_METHOD1(getOutputLevel, definitions::EGpioState(const uint8_t));
-    MOCK_METHOD2(setOutputLevel, bool(const uint8_t, const definitions::EGpioState));
+    MOCK_METHOD1(getInputLevel, std::optional<definitions::EGpioState>(const core::TGpioNumber));
+    MOCK_METHOD1(getOutputLevel, std::optional<definitions::EGpioState>(const core::TGpioNumber));
+    MOCK_METHOD2(setOutputLevel, core::definitions::EOperationResult(const core::TGpioNumber, const definitions::EGpioState));
 };
 
 }  // namespace gpio
