@@ -31,8 +31,4 @@ target_include_directories(${PROJECT_NAME}
         ${INCLUDE_DIR}
 )
 
-target_link_libraries(${PROJECT_NAME}
-    ${PROJECT_NAME_PREFIX}_library_gpio
-)
-
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)

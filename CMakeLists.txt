@@ -23,6 +23,8 @@ if (BUILD_LIB_FOR_TARGET OR BUILD_LIB_FOR_HOST)
     include(cmake/FetchAndInitializePicoSdkExtras.cmake)
     include(cmake/CopyPicoSdk.cmake)
     include(cmake/CopyPicoSdkExtras.cmake)
+    include(cmake/AddPicoSdkIncludeDirectories.cmake)
+    include(cmake/LinkPicoSdkLibraries.cmake)
 endif (BUILD_LIB_FOR_TARGET OR BUILD_LIB_FOR_HOST)
 
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)

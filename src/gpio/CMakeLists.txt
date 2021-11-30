@@ -57,10 +57,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 if (BUILD_LIB_FOR_TARGET)
-    target_link_libraries(${PROJECT_NAME}
-        hardware_gpio
-        hardware_irq
-    )
+    add_pico_sdk_include_directories(${PROJECT_NAME})
 else ()
     if (BUILD_UNIT_TESTS)
         target_link_libraries(${PROJECT_NAME}

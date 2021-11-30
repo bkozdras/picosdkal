@@ -26,4 +26,8 @@ target_link_libraries(${PROJECT_NAME}
     ${PROJECT_NAME}_system
 )
 
+if (BUILD_LIB_FOR_TARGET)
+    link_pico_sdk_libraries(${PROJECT_NAME})
+endif (BUILD_LIB_FOR_TARGET)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
