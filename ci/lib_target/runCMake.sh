@@ -23,6 +23,7 @@ fi
 
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
+    -DRPIPICOSDKAL_BUILD_DUMMY_EXECUTABLE=ON \
     -DRPIPICOSDKAL_BUILD_LIB_FOR_TARGET=ON ..
 
 if [ $? -ne 0 ]
