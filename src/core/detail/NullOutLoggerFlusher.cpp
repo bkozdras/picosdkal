@@ -6,8 +6,6 @@
 
 #include <rpipicosdkal/core/detail/NullOutLoggerFlusher.hpp>
 
-#include <iostream>
-
 namespace rpipicosdkal
 {
 namespace core

@@ -6,7 +6,7 @@
 
 #include <rpipicosdkal/core/detail/StdOutLoggerFlusher.hpp>
 
-#include <iostream>
+#include <cstdio>
 
 namespace rpipicosdkal
 {
@@ -32,7 +32,7 @@ StdOutLoggerFlusher::~StdOutLoggerFlusher()
 {
     if (isOutputEnabled_)
     {
-        std::cout << outStr_.str() << std::endl;
+        ::printf("%s\n", outStr_.str().c_str());
     }
 }
 
