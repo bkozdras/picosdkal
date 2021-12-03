@@ -12,7 +12,7 @@ add_executable(${UT_BINARY_NAME})
 
 target_sources(${UT_BINARY_NAME}
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/RunnerTests.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/EventQueueTests.cpp
 )
 
 target_link_libraries(${UT_BINARY_NAME}

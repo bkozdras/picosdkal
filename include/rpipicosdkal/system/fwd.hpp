@@ -4,27 +4,20 @@
 /* Licence: MIT                                                                   */
 /**********************************************************************************/
 
-#include <rpipicosdkal/system/Runner.hpp>
+#ifndef RPIPICOSDKAL_SYSTEM_FWD_HPP_
+#define RPIPICOSDKAL_SYSTEM_FWD_HPP_
 
-#include <pico/platform.h>
-
-#include <rpipicosdkal/context/Context.hpp>
-#include <rpipicosdkal/system/IApplication.hpp>
+#include <memory>
 
 namespace rpipicosdkal
 {
 namespace system
 {
 
-void runSystem(IApplicationPtr&& application)
-{
-    auto context = context::Context::create();
-    application->setup(*context);
-    for (;;)
-    {
-        tight_loop_contents();
-    }
-}
+class IApplication;
+using IApplicationPtr = std::unique_ptr<IApplication>;
 
 }  // namespace system
 }  // namespace rpipicosdkal
+
+#endif  // RPIPICOSDKAL_SYSTEM_FWD_HPP_

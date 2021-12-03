@@ -4,27 +4,25 @@
 /* Licence: MIT                                                                   */
 /**********************************************************************************/
 
-#include <rpipicosdkal/system/Runner.hpp>
+#ifndef RPIPICOSDKAL_SYSTEM_IAPPLICATION_HPP_
+#define RPIPICOSDKAL_SYSTEM_IAPPLICATION_HPP_
 
-#include <pico/platform.h>
-
-#include <rpipicosdkal/context/Context.hpp>
-#include <rpipicosdkal/system/IApplication.hpp>
+#include <rpipicosdkal/context/fwd.hpp>
 
 namespace rpipicosdkal
 {
 namespace system
 {
 
-void runSystem(IApplicationPtr&& application)
+class IApplication
 {
-    auto context = context::Context::create();
-    application->setup(*context);
-    for (;;)
-    {
-        tight_loop_contents();
-    }
-}
+public:
+    virtual ~IApplication() = default;
+
+    virtual void setup(context::IContext& context) = 0;
+};
 
 }  // namespace system
 }  // namespace rpipicosdkal
+
+#endif  // RPIPICOSDKAL_SYSTEM_IAPPLICATION_HPP_

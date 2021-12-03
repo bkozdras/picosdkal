@@ -12,7 +12,6 @@ add_executable(${UT_BINARY_NAME})
 
 target_sources(${UT_BINARY_NAME}
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/ConfigurableContextTests.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ContextTests.cpp
 )
 
