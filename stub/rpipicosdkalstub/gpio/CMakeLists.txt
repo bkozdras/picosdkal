@@ -15,11 +15,13 @@ add_library(${PROJECT_NAME} STATIC)
 
 target_sources(${PROJECT_NAME}
     PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/ContextStub.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioInterruptControllerStub.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioSettingsControllerStub.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioStateControllerStub.hpp
 
     PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/ContextStub.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioInterruptControllerStub.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioSettingsControllerStub.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioStateControllerStub.cpp

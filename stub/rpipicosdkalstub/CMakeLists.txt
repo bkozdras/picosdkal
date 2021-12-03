@@ -6,4 +6,5 @@
 
 message(STATUS "Processing: ${CMAKE_CURRENT_LIST_FILE}")
 
+add_subdirectory(context)
 add_subdirectory(gpio)

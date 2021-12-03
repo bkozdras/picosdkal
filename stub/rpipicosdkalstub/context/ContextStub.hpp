@@ -4,20 +4,35 @@
 /* Licence: MIT                                                                   */
 /**********************************************************************************/
 
-#ifndef RPIPICOSDKAL_CONTEXT_FWD_HPP_
-#define RPIPICOSDKAL_CONTEXT_FWD_HPP_
+#ifndef RPIPICOSDKALSTUB_CONTEXT_CONTEXT_HPP_
+#define RPIPICOSDKALSTUB_CONTEXT_CONTEXT_HPP_
 
-#include <memory>
+#include <rpipicosdkal/context/IContext.hpp>
+
+#include <rpipicosdkalstub/gpio/ContextStub.hpp>
 
 namespace rpipicosdkal
 {
 namespace context
 {
 
-class IContext;
-using IContextPtr = std::unique_ptr<IContext>;
+class ContextStub final : public IContext
+{
+public:
+    static std::unique_ptr<ContextStub> create();
+    ~ContextStub();
+
+    gpio::IContext& gpio() override;
+
+    gpio::ContextStub& gpioStub();
+
+private:
+    ContextStub();
+
+    std::unique_ptr<gpio::ContextStub> gpioContextStub_;
+};
 
 }  // namespace context
 }  // namespace rpipicosdkal
 
-#endif  // RPIPICOSDKAL_CONTEXT_FWD_HPP_
+#endif  // RPIPICOSDKALSTUB_CONTEXT_CONTEXT_HPP_

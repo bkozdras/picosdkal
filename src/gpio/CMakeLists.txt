@@ -35,6 +35,7 @@ target_sources(${PROJECT_NAME}
         ${LOCAL_HEADERS_DIR}/gpio/detail/PrinterBase.hpp
 
     PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/Context.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioInterruptController.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioSettingsController.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/GpioStateController.cpp

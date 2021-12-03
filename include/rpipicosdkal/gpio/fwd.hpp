@@ -14,6 +14,9 @@ namespace rpipicosdkal
 namespace gpio
 {
 
+class IContext;
+using IContextPtr = std::unique_ptr<IContext>;
+
 class IGpioInterruptController;
 using IGpioInterruptControllerPtr = std::unique_ptr<IGpioInterruptController>;
 
