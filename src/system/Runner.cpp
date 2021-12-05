@@ -16,7 +16,7 @@ namespace rpipicosdkal
 namespace system
 {
 
-void runSystem(IApplicationPtr&& application)
+void run(IApplicationPtr&& application)
 {
     auto context = context::Context::create();
     application->setup(*context);

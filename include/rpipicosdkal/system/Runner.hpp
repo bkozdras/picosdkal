@@ -14,7 +14,7 @@ namespace rpipicosdkal
 namespace system
 {
 
-void runSystem(IApplicationPtr&& application);
+void run(IApplicationPtr&& application);
 
 }  // namespace system
 }  // namespace rpipicosdkal

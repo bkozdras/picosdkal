@@ -27,7 +27,7 @@ std::vector<core::TGpioNumber> getAllGpioNumbers()
     {
         allPicoGpioNumbers.push_back(gpioNumber);
     }
-    for (auto gpioNumber = 26u; gpioNumber <= 28u; ++gpioNumber)
+    for (auto gpioNumber = 25u; gpioNumber <= 28u; ++gpioNumber)
     {
         allPicoGpioNumbers.push_back(gpioNumber);
     }
@@ -40,7 +40,7 @@ bool isGpioNumberCorrect(const core::TGpioNumber gpioNumber)
     {
         return true;
     }
-    if (gpioNumber >= 26u && gpioNumber <= 28u)
+    if (gpioNumber >= 25u && gpioNumber <= 28u)
     {
         return true;
     }

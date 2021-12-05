@@ -76,7 +76,7 @@ std::vector<std::pair<definitions::EGpioFunction, enum gpio_function>> generateA
 
 std::vector<core::TGpioNumber> generateInvalidGpioNumbers()
 {
-    std::vector<core::TGpioNumber> invalidGpioNumbers = {23u, 24u, 25u};
+    std::vector<core::TGpioNumber> invalidGpioNumbers = {23u, 24u};
     for (auto number = 29u; number <= 100u; ++number)
     {
         invalidGpioNumbers.push_back(number);
@@ -119,7 +119,7 @@ void GpioSettingsControllerShould::expectAllGpiosFunctionSetToSioInputOnCreation
     {
         allPicoGpioNumbers.push_back(gpioNumber);
     }
-    for (auto gpioNumber = 26u; gpioNumber <= 28u; ++gpioNumber)
+    for (auto gpioNumber = 25u; gpioNumber <= 28u; ++gpioNumber)
     {
         allPicoGpioNumbers.push_back(gpioNumber);
     }

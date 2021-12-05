@@ -47,4 +47,12 @@ target_include_directories(${PROJECT_NAME}
         ${INCLUDE_DIR}
 )
 
+if (BUILD_LIB_FOR_TARGET)
+    target_link_libraries(${PROJECT_NAME_PREFIX}_picosdklibrary
+        INTERFACE
+            pico_stdlib
+            pico_stdio_uart
+    )
+endif (BUILD_LIB_FOR_TARGET)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
